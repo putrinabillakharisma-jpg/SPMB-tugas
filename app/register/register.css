@@ -1,0 +1,721 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --spmb-blue: #1558a9;
+  --spmb-dark-blue: #0e3f80;
+  --spmb-navy: #102958;
+  --spmb-light: #f0f3f9;
+  --spmb-text: #243550;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.register-page {
+  min-height: 100vh;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #faf8ff;
+  font-family: "Poppins", sans-serif;
+  color: var(--spmb-text);
+  overflow: hidden;
+}
+
+.register-background {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 700px;
+  padding: 70px 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #216dc7 0%,
+    #1558aa 53%,
+    #104889 100%
+  );
+}
+
+/* KARTU UTAMA */
+
+.register-card {
+  width: 100%;
+  max-width: 850px;
+  min-height: 475px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 0.86fr;
+  align-items: stretch;
+  border-radius: 17px;
+  isolation: isolate;
+}
+
+/* PANEL KIRI */
+
+.welcome-panel {
+  position: relative;
+  min-width: 0;
+  min-height: 475px;
+  padding: 27px 25px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: white;
+  background: linear-gradient(140deg, #1c66bc, #1554a6);
+  border-radius: 18px 0 0 18px;
+  z-index: 2;
+}
+
+/* Lengkungan biru yang masuk ke area putih */
+.welcome-panel::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 650px;
+  top: -87px;
+  right: -125px;
+  border-radius: 50%;
+  background: #fff;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.welcome-content {
+  width: 100%;
+  position: relative;
+  z-index: 3;
+  align-self: stretch;
+}
+
+.school-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.school-seal {
+  width: 51px;
+  height: 51px;
+  border: 3px double #ffdf42;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffe66b;
+  background: radial-gradient(circle, #19834d 0 43%, #1555a5 45% 100%);
+  box-shadow: 0 0 0 2px rgba(255, 226, 69, 0.25);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.school-seal img{
+   width: 45px;
+  height: 45px;
+
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.brand-text strong {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.brand-text span {
+  font-size: 8px;
+  opacity: 0.9;
+}
+
+.welcome-copy {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  width: calc(100% - 15px);
+  transform: translateY(-37%);
+}
+
+.welcome-title {
+  margin: 0 0 3px;
+  font-size: clamp(20px, 2.3vw, 27px);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+
+.welcome-copy h2 {
+  margin: 5px 0 16px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.welcome-description {
+  max-width: 300px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 1.9;
+}
+
+/* BUBBLE DEKORASI */
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.bubble-one {
+  width: 165px;
+  height: 165px;
+  left: -62px;
+  bottom: -61px;
+  background: rgba(86, 158, 238, 0.37);
+  animation: bubbleFloatOne 7s ease-in-out infinite;
+}
+
+.bubble-two {
+  width: 133px;
+  height: 133px;
+  left: 57%;
+  bottom: 16px;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(94, 166, 247, 0.8),
+    rgba(27, 104, 198, 0.95) 75%
+  );
+  z-index: 4;
+  animation: bubbleFloatTwo 6s ease-in-out infinite;
+}
+
+.bubble-three {
+  width: 50px;
+  height: 50px;
+  left: 43%;
+  top: 22%;
+  background: rgba(98, 168, 243, 0.13);
+  animation: bubbleFloatThree 8s ease-in-out infinite;
+}
+
+.bubble-four {
+  width: 25px;
+  height: 25px;
+  left: 70%;
+  top: 13%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: bubbleFloatOne 5s ease-in-out infinite reverse;
+}
+
+.bubble-five {
+  width: 70px;
+  height: 70px;
+  left: 10%;
+  bottom: 25%;
+  background: rgba(69, 143, 227, 0.12);
+  animation: bubbleFloatThree 9s ease-in-out infinite;
+}
+
+/* PANEL KANAN */
+
+.form-panel {
+  min-width: 0;
+  min-height: 475px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 34px 32px 28px 24px;
+  margin-left: -35px;
+  background: #fff;
+  border-radius: 0 18px 18px 0;
+  z-index: 1;
+}
+
+.form-inner {
+  width: 100%;
+  max-width: 310px;
+  position: relative;
+  z-index: 5;
+}
+
+.form-header {
+  margin-bottom: 12px;
+}
+
+.form-header h1 {
+  margin: 0;
+  color: var(--spmb-navy);
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+
+.form-header p {
+  margin: 3px 0 0;
+  color: #8290a9;
+  font-size: 8px;
+  line-height: 1.6;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.input-group {
+  min-height: 39px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 10px;
+  background: var(--spmb-light);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.input-group:focus-within {
+  border-color: #4384d0;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(39, 108, 191, 0.1);
+}
+
+.field-icon {
+  width: 15px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1d2c43;
+}
+
+.field-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.input-group:first-of-type .field-icon svg circle,
+.input-group:first-of-type .field-icon svg path {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.input-group input {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--spmb-text);
+  font-family: inherit;
+  font-size: 9px;
+}
+
+.input-group input::placeholder {
+  color: #8792a3;
+  opacity: 1;
+}
+
+.password-group {
+  gap: 7px;
+}
+
+.show-password {
+  flex-shrink: 0;
+  padding: 5px 0 5px 4px;
+  border: none;
+  background: transparent;
+  color: #1253a2;
+  font-family: inherit;
+  font-size: 7px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.show-password:hover {
+  color: #287bd4;
+}
+
+/* PERSETUJUAN */
+
+.terms-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 4px 0 5px;
+  color: #5c6c87;
+  font-size: 8px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.terms-row input {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  margin: 0;
+  accent-color: #1257ad;
+  cursor: pointer;
+}
+
+/* TOMBOL */
+
+.register-button,
+.login-button {
+  min-height: 39px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.register-button {
+  border: 1px solid #104c95;
+  background: #104c95;
+  color: white;
+}
+
+.register-button:hover {
+  background: #0c3f80;
+  box-shadow: 0 5px 14px rgba(16, 76, 149, 0.2);
+  transform: translateY(-1px);
+}
+
+.register-button:active,
+.login-button:active {
+  transform: scale(0.985);
+}
+
+.form-divider {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 4px 0 2px;
+}
+
+.form-divider span {
+  height: 1px;
+  flex: 1;
+  background: #dce2ed;
+}
+
+.form-divider p {
+  margin: 0;
+  color: #96a0b2;
+  font-size: 8px;
+}
+
+.login-button {
+  min-height: 33px;
+  border: 1.5px solid #243957;
+  background: #fff;
+  color: #263955;
+}
+
+.login-button:hover {
+  background: #f3f7fc;
+  box-shadow: 0 4px 12px rgba(30, 57, 91, 0.08);
+}
+
+.help-text {
+  margin: 17px 0 0;
+  color: #8592aa;
+  text-align: center;
+  font-size: 7px;
+}
+
+.help-text a {
+  color: #1557a9;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.help-text a:hover {
+  text-decoration: underline;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* DEKORASI LENGKUNGAN KANAN BAWAH */
+
+.form-decoration {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 57px;
+  height: 57px;
+  overflow: hidden;
+  border-radius: 100% 0 0 0;
+  background: #1d65bc;
+  z-index: 2;
+}
+
+/* FOOTER */
+
+.register-footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 42px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 8px;
+  text-align: center;
+}
+
+/* ANIMASI BUBBLE */
+
+@keyframes bubbleFloatOne {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(10px, -19px, 0);
+  }
+}
+
+@keyframes bubbleFloatTwo {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-9px, -17px, 0) scale(1.04);
+  }
+}
+
+@keyframes bubbleFloatThree {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(-12px, 15px, 0);
+  }
+}
+
+/* RESPONSIVE: TABLET */
+
+@media (min-width: 1000px) {
+  .register-background {
+    min-height: 708px;
+  }
+
+  .register-card {
+    max-width: 850px;
+  }
+}
+
+@media (max-width: 760px) {
+  .register-page {
+    min-height: 100vh;
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .register-background {
+    min-height: auto;
+    padding: 38px 18px 28px;
+    border-radius: 12px;
+  }
+
+  .register-card {
+    max-width: 460px;
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .welcome-panel {
+    min-height: 260px;
+    padding: 24px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .welcome-panel::after {
+    width: 220px;
+    height: 350px;
+    top: 125px;
+    right: -140px;
+  }
+
+  .welcome-copy {
+    top: 105px;
+    left: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  .welcome-title {
+    font-size: 24px;
+  }
+
+  .welcome-description {
+    max-width: 270px;
+    font-size: 9px;
+  }
+
+  .desktop-break {
+    display: none;
+  }
+
+  .bubble-two {
+    width: 95px;
+    height: 95px;
+    left: auto;
+    right: 5px;
+    bottom: 7px;
+  }
+
+  .form-panel {
+    min-height: auto;
+    margin-left: 0;
+    padding: 30px 25px;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .form-inner {
+    max-width: 100%;
+  }
+
+  .form-header h1 {
+    font-size: 25px;
+  }
+
+  .input-group {
+    min-height: 43px;
+  }
+
+  .input-group input {
+    height: 41px;
+    font-size: 11px;
+  }
+
+  .register-form {
+    gap: 9px;
+  }
+
+  .terms-row {
+    font-size: 9px;
+  }
+
+  .register-button {
+    min-height: 43px;
+  }
+
+  .login-button {
+    min-height: 39px;
+  }
+
+  .help-text {
+    font-size: 8px;
+  }
+
+  .register-footer {
+    margin-top: 25px;
+    font-size: 8px;
+  }
+}
+
+/* RESPONSIVE: HP KECIL */
+
+@media (max-width: 380px) {
+  .register-page {
+    padding: 8px;
+  }
+
+  .register-background {
+    padding: 18px 10px;
+  }
+
+  .welcome-panel {
+    min-height: 245px;
+    padding: 20px;
+  }
+
+  .welcome-title {
+    font-size: 21px;
+  }
+
+  .welcome-copy h2 {
+    font-size: 10px;
+  }
+
+  .form-panel {
+    padding: 25px 18px;
+  }
+
+  .form-header h1 {
+    font-size: 23px;
+  }
+
+  .show-password {
+    font-size: 6px;
+  }
+}
+
+/* Menghormati pengaturan pengurangan animasi perangkat */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

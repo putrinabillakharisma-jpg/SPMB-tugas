@@ -1,0 +1,913 @@
+
+:root {
+  --spmb-navy: #171d78;
+  --spmb-blue: #2868e8;
+  --spmb-text: #17245f;
+  --spmb-muted: #7885a7;
+  --spmb-border: #dce4fa;
+  --spmb-bg: #f8f9ff;
+  --spmb-white: #fff;
+}
+
+.cs-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--spmb-bg);
+  color: var(--spmb-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cs-main {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 22px;
+  background: var(--spmb-bg);
+  overflow-x: hidden;
+}
+
+.cs-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.cs-breadcrumb {
+  margin: 0 0 7px;
+  color: #7c89a9;
+  font-size: 11px;
+}
+
+.cs-breadcrumb span {
+  padding: 0 4px;
+  color: var(--spmb-blue);
+}
+
+.cs-topbar h1 {
+  margin: 0;
+  color: var(--spmb-navy);
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+.cs-subtitle {
+  margin: 6px 0 0;
+  color: var(--spmb-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.cs-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cs-year,
+.cs-export-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 35px;
+  padding: 0 11px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 8px;
+  background: #fff;
+  color: #2a3a79;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.cs-export-btn {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.cs-export-btn:hover {
+  background: #eef4ff;
+}
+
+.cs-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 35px;
+  padding: 0 13px;
+  border: 1px solid var(--spmb-blue);
+  border-radius: 8px;
+  background: var(--spmb-blue);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.cs-primary-btn:hover:not(:disabled) {
+  background: #1958d3;
+  transform: translateY(-1px);
+}
+
+.cs-primary-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Alerts */
+.cs-alert {
+  margin-bottom: 14px;
+  padding: 11px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.cs-alert.success {
+  border-color: #b8ebcf;
+  background: #edfff4;
+  color: #087b3e;
+}
+
+.cs-alert.danger {
+  border-color: #ffcaca;
+  background: #fff1f1;
+  color: #c12f35;
+}
+
+/* Statistik */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 13px;
+}
+
+.cs-stat-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+  min-height: 88px;
+  padding: 13px 12px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 11px;
+  background: white;
+  box-shadow: 0 2px 7px #243a8110;
+}
+
+.cs-stat-icon {
+  display: flex;
+  flex: 0 0 31px;
+  align-items: center;
+  justify-content: center;
+  width: 31px;
+  height: 31px;
+  border-radius: 9px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.cs-stat-icon.blue {
+  background: #e2edff;
+  color: #3579f6;
+}
+
+.cs-stat-icon.orange {
+  background: #fff0d9;
+  color: #ff9419;
+}
+
+.cs-stat-icon.yellow {
+  background: #fff4c7;
+  color: #e7ac00;
+}
+
+.cs-stat-icon.green {
+  background: #dcf8e7;
+  color: #159a55;
+}
+
+.cs-stat-info {
+  min-width: 0;
+}
+
+.cs-stat-info p {
+  margin: 0 0 3px;
+  color: #6c7a9c;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.cs-stat-info h2 {
+  margin: 0 0 5px;
+  color: var(--spmb-navy);
+  font-size: 23px;
+  font-weight: 750;
+  line-height: 1;
+}
+
+.cs-stat-note {
+  color: #8792ae;
+  font-size: 9px;
+}
+
+.cs-stat-note.orange-text {
+  color: #c16a00;
+  font-weight: 700;
+}
+
+/* Panel utama */
+.cs-content-card {
+  min-width: 0;
+  padding: 15px 13px 12px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 2px 8px #263d8308;
+}
+
+/* Tab status */
+.cs-tabs {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid #e8edfa;
+}
+
+.cs-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 35px;
+  padding: 0 0 10px;
+  border: 0;
+  background: transparent;
+  color: #657394;
+  font-size: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.cs-tab.active {
+  color: var(--spmb-blue);
+  font-weight: 750;
+}
+
+.cs-tab.active::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  border-radius: 3px;
+  background: var(--spmb-blue);
+  content: "";
+}
+
+.cs-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 19px;
+  height: 16px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: #e8efff;
+  color: #2868e8;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.count-orange {
+  background: #fff0d9;
+  color: #bd6700;
+}
+
+.count-green {
+  background: #dcf8e7;
+  color: #13884b;
+}
+
+.count-red {
+  background: #ffe5e7;
+  color: #d72f42;
+}
+
+/* Filter */
+.cs-filters {
+  display: grid;
+  grid-template-columns: minmax(170px, 1.8fr) repeat(4, minmax(95px, 1fr)) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+.cs-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  min-width: 0;
+  padding: 0 10px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 8px;
+  background: #fbfcff;
+  color: #8290b2;
+}
+
+.cs-search > span {
+  font-size: 18px;
+}
+
+.cs-search input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--spmb-text);
+  font: inherit;
+  font-size: 10px;
+}
+
+.cs-search input::placeholder {
+  color: #929db8;
+}
+
+.cs-filters select {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 8px;
+  outline: none;
+  background: white;
+  color: #4e5e86;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.cs-filters select:focus {
+  border-color: var(--spmb-blue);
+}
+
+.cs-reset-btn {
+  height: 36px;
+  padding: 0 11px;
+  border: 1px solid #cbdcff;
+  border-radius: 8px;
+  background: white;
+  color: var(--spmb-blue);
+  font-size: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.cs-reset-btn:hover {
+  background: #eef4ff;
+}
+
+/* Baris pilihan */
+.cs-selection-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 8px 11px;
+  border: 1px solid #cbdcff;
+  border-radius: 8px;
+  background: #f0f5ff;
+  font-size: 10px;
+}
+
+.cs-selection-bar strong {
+  color: #245bd0;
+}
+
+.cs-selection-bar button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #5c6e95;
+  font-size: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cs-selection-bar span {
+  color: #7885a7;
+}
+
+/* Tabel */
+.cs-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.cs-table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  text-align: left;
+}
+
+.cs-table thead {
+  background: #eef3ff;
+}
+
+.cs-table th {
+  padding: 11px 8px;
+  background: #eef3ff;
+  color: #273773;
+  font-size: 9px;
+  font-weight: 750;
+  white-space: nowrap;
+  border-bottom: 1px solid #dfe7fa;
+}
+
+.cs-table th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.cs-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.cs-table td {
+  padding: 9px 8px;
+  border-bottom: 1px solid #edf0fa;
+  color: #536183;
+  font-size: 9px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.cs-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.cs-table tbody tr:hover {
+  background: #f4f7ff;
+}
+
+.cs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cs-table tbody tr.row-selected {
+  background: #eff4ff;
+}
+
+.cs-check-col {
+  width: 27px;
+  text-align: center;
+}
+
+.cs-table input[type="checkbox"] {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  accent-color: var(--spmb-blue);
+  cursor: pointer;
+}
+
+.cs-empty {
+  padding: 40px 15px !important;
+  color: #8591ae !important;
+  text-align: center;
+  white-space: normal !important;
+}
+
+/* Identitas siswa */
+.cs-student {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 150px;
+}
+
+.cs-avatar {
+  display: flex;
+  flex: 0 0 25px;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #e4edff;
+  color: #3475ec;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.cs-student-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.cs-student-info strong {
+  color: #243574;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.cs-student-info span {
+  color: #929db8;
+  font-size: 8px;
+}
+
+/* Jurusan */
+.cs-major {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cs-major i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5c94ff;
+}
+
+/* Badge status */
+.cs-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 19px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.status-green {
+  background: #ddf7e7;
+  color: #118647;
+}
+
+.status-orange {
+  background: #fff0d9;
+  color: #b96800;
+}
+
+.status-red {
+  background: #ffe4e7;
+  color: #d82d42;
+}
+
+.status-neutral {
+  background: #eef1f7;
+  color: #697793;
+}
+
+.cs-score {
+  color: #13884c;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.cs-score-empty {
+  color: #a0a9bd;
+  font-size: 8px;
+}
+
+/* Aksi tabel */
+.cs-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cs-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cs-action-btn.view {
+  border-color: #d4e2ff;
+  background: #eaf1ff;
+  color: #2868e8;
+}
+
+.cs-action-btn.edit {
+  border-color: #ffdfae;
+  background: #fff5e5;
+  color: #d77a00;
+}
+
+.cs-action-btn.delete {
+  border-color: #ffd2d2;
+  background: #fff0f0;
+  color: #e23c45;
+}
+
+.cs-action-btn.view:hover {
+  background: #d8e6ff;
+}
+
+.cs-action-btn.edit:hover {
+  background: #ffe8c2;
+}
+
+.cs-action-btn.delete:hover {
+  background: #ffe0e0;
+}
+
+/* Pagination */
+.cs-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 12px;
+  color: #7885a7;
+  font-size: 9px;
+}
+
+.cs-page-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cs-page-controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+  color: #7885a7;
+  font-size: 9px;
+}
+
+.cs-page-controls select {
+  height: 25px;
+  padding: 0 7px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 6px;
+  background: white;
+  color: var(--spmb-text);
+  font-size: 10px;
+}
+
+.cs-page-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 25px;
+  height: 25px;
+  padding: 0 7px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 6px;
+  background: white;
+  color: #344477;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.cs-page-controls button.current {
+  border-color: var(--spmb-blue);
+  background: var(--spmb-blue);
+  color: white;
+}
+
+.cs-page-controls button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Modal tambah/edit */
+.cs-modal-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgb(15 24 74 / 48%);
+  backdrop-filter: blur(4px);
+}
+
+.cs-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 24px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 20px 70px #0c194833;
+}
+
+.cs-modal-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.cs-modal-heading p {
+  margin: 0 0 6px;
+  color: var(--spmb-blue);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1px;
+}
+
+.cs-modal-heading h2 {
+  margin: 0;
+  color: var(--spmb-navy);
+  font-size: 21px;
+}
+
+.cs-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--spmb-border);
+  border-radius: 8px;
+  background: white;
+  color: #667395;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.cs-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cs-modal form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #34416e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cs-modal form label input {
+  width: 100%;
+  min-height: 41px;
+  padding: 0 12px;
+  border: 1px solid #dce4f6;
+  border-radius: 8px;
+  outline: none;
+  background: #fbfcff;
+  color: var(--spmb-text);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.cs-modal form label input:focus {
+  border-color: var(--spmb-blue);
+  box-shadow: 0 0 0 3px #2868e81a;
+}
+
+.cs-form-note {
+  margin: 0;
+  color: #7d89a7;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.cs-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 4px;
+}
+
+.cs-cancel-btn {
+  min-height: 35px;
+  padding: 0 15px;
+  border: 1px solid #dce4f6;
+  border-radius: 8px;
+  background: white;
+  color: #59678a;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cs-cancel-btn:disabled,
+.cs-close-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cs-layout button:focus-visible,
+.cs-layout a:focus-visible {
+  outline: 2px solid #84aaff;
+  outline-offset: 2px;
+}
+
+/* Responsif */
+@media (max-width: 1250px) {
+  .cs-main {
+    padding: 20px 15px;
+  }
+
+  .cs-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cs-filters {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cs-search {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 700px) {
+  .cs-main {
+    padding: 14px 10px;
+  }
+
+  .cs-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cs-topbar h1 {
+    font-size: 22px;
+  }
+
+  .cs-header-actions {
+    justify-content: flex-start;
+  }
+
+  .cs-stats {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .cs-stat-card {
+    min-height: 78px;
+  }
+
+  .cs-content-card {
+    padding: 11px 9px;
+  }
+
+  .cs-tabs {
+    gap: 15px;
+  }
+
+  .cs-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cs-search {
+    grid-column: span 2;
+  }
+
+  .cs-pagination {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cs-modal {
+    padding: 18px;
+  }
+}

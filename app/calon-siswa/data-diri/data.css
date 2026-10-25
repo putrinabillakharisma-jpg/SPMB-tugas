@@ -1,0 +1,256 @@
+/* =========================================================
+   data.css — Form Daftar Baru Calon Siswa (Portal SPMB)
+   Lokasi: app/calon-siswa/data-diri/baru/data.css
+   Semua class diawali "fb-" agar tidak bentrok dengan data.css
+   milik halaman daftar (prefix "dd-") dan calon.css (prefix "calon-").
+   ========================================================= */
+
+.fb-layout {
+  --navy: #14197a;
+  --blue: #1565d8;
+  --blue-soft: #eef5ff;
+  --line: #9fbdf5;
+  --card-line: #a8bff3;
+  --text: #111827;
+  --danger: #dc2626;
+
+  display: flex;
+  min-height: 100vh;
+  background: #fbfaff;
+  font-family: "Montserrat", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  color: var(--text);
+}
+
+.fb-layout *,
+.fb-layout *::before,
+.fb-layout *::after { box-sizing: border-box; }
+
+/* ---------------- Sidebar ---------------- */
+.fb-sidebar {
+  width: 205px;
+  flex-shrink: 0;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 4px 28px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.fb-brand { display: flex; align-items: center; gap: 10px; padding: 0 12px 28px; }
+.fb-brand__logo {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #d9a521; color: var(--navy);
+  border: 2px solid #f4d36b;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 800;
+}
+.fb-brand__title { font-size: 24px; font-weight: 800; line-height: 1.05; letter-spacing: .5px; }
+.fb-brand__sub { font-size: 12px; }
+
+.fb-nav { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.fb-nav__item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  color: #fff; text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  border-radius: 4px;
+  transition: background .15s ease;
+}
+.fb-nav__item:hover { background: rgba(255, 255, 255, .08); }
+.fb-nav__item.is-active { background: var(--blue); }
+
+.fb-logout {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 12px;
+  background: transparent; border: 0; color: #fff;
+  padding: 10px 24px; font-size: 14px; font-weight: 500;
+  font-family: inherit; cursor: pointer;
+}
+
+/* ---------------- Main ---------------- */
+.fb-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.fb-topbar {
+  height: 46px; flex-shrink: 0; background: #fff;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 0 28px;
+}
+.fb-profile { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+.fb-profile__avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #e5e7eb; color: #374151;
+  border: 1.5px solid #374151;
+  display: grid; place-items: center; overflow: hidden;
+}
+
+.fb-content {
+  flex: 1;
+  margin-left: 2px;
+  padding: 36px 40px 40px;
+  background: var(--blue-soft);
+  border-radius: 14px 0 0 0;
+  display: flex; flex-direction: column; gap: 24px;
+}
+
+/* ---------------- Heading ---------------- */
+.fb-head { display: flex; flex-direction: column; gap: 6px; }
+.fb-breadcrumb { display: flex; gap: 6px; font-size: 12px; color: #4b5563; }
+.fb-breadcrumb a { color: inherit; text-decoration: none; }
+.fb-breadcrumb a:hover { text-decoration: underline; }
+.fb-breadcrumb b { color: var(--blue); font-weight: 600; }
+.fb-title { margin: 0; font-size: 24px; font-weight: 800; color: var(--navy); }
+.fb-desc { margin: 0; font-size: 13px; color: #374151; }
+
+.fb-req { color: var(--danger); font-weight: 700; }
+
+/* ---------------- Form ---------------- */
+.fb-form { display: flex; flex-direction: column; gap: 20px; max-width: 880px; }
+
+.fb-card {
+  background: #fff;
+  border: 1.5px solid var(--card-line);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+.fb-card__head { display: flex; align-items: center; gap: 12px; }
+.fb-card__head h2 { margin: 0; font-size: 16px; font-weight: 800; color: var(--navy); }
+.fb-step {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 700;
+}
+
+.fb-grid { display: flex; flex-wrap: wrap; gap: 18px 20px; }
+
+.fb-field {
+  flex: 1 1 340px; min-width: 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.fb-field.is-full { flex-basis: 100%; }
+
+.fb-label { font-size: 13px; font-weight: 600; color: var(--navy); }
+
+/* Input, select, tanggal */
+.fb-field input[type="text"],
+.fb-field input[type="tel"],
+.fb-field input[type="email"],
+.fb-field input[type="date"],
+.fb-field select,
+.fb-field textarea {
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--text);
+  font-family: inherit; font-size: 14px;
+}
+
+.fb-field input[type="text"],
+.fb-field input[type="tel"],
+.fb-field input[type="email"],
+.fb-field input[type="date"],
+.fb-field select {
+  height: 40px; padding: 0 12px;
+}
+
+.fb-field ::placeholder { color: #6b7280; }
+
+.fb-field input:focus,
+.fb-field select:focus,
+.fb-field textarea:focus {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+  border-color: var(--blue);
+}
+
+.fb-field .is-error { border-color: var(--danger); }
+.fb-error { font-size: 11px; color: var(--danger); }
+
+/* Select dengan chevron kustom */
+.fb-select { position: relative; }
+.fb-select select { appearance: none; -webkit-appearance: none; padding-right: 36px; }
+.fb-select svg {
+  position: absolute; right: 12px; top: 12px;
+  color: #374151; pointer-events: none;
+}
+.fb-select select:invalid { color: #6b7280; }
+
+/* Tanggal */
+.fb-date { position: relative; }
+.fb-date input { padding-right: 36px; }
+.fb-date input::-webkit-calendar-picker-indicator { opacity: 0; position: absolute; right: 0; width: 40px; height: 100%; cursor: pointer; }
+.fb-date svg { position: absolute; right: 12px; top: 12px; color: #374151; pointer-events: none; }
+
+/* Textarea */
+.fb-textarea { padding: 10px 12px; resize: vertical; min-height: 84px; }
+
+/* Upload foto */
+.fb-file {
+  position: relative;
+  height: 40px; padding: 0 12px;
+  display: flex; align-items: center;
+  border: 1.5px dashed var(--line);
+  border-radius: 4px;
+  background: #f6f9ff;
+  color: #374151; font-size: 12px;
+  cursor: pointer;
+}
+.fb-file input {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0; cursor: pointer;
+}
+.fb-file:focus-within { outline: 2px solid var(--blue); outline-offset: 1px; }
+.fb-file span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------------- Tombol ---------------- */
+.fb-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; padding-top: 4px; }
+
+.fb-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 42px; padding: 0 26px;
+  border-radius: 4px;
+  font-family: inherit; font-size: 14px; font-weight: 700;
+  text-decoration: none; cursor: pointer;
+  transition: filter .15s ease;
+}
+.fb-btn--outline { background: #fff; color: var(--navy); border: 1.5px solid var(--line); font-weight: 600; padding: 0 24px; }
+.fb-btn--primary { background: var(--blue); color: #fff; border: 0; }
+.fb-btn--primary:hover { filter: brightness(1.08); }
+.fb-btn--primary:disabled { opacity: .6; cursor: not-allowed; }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 760px) {
+  .fb-sidebar { display: none; }
+  .fb-topbar { padding: 0 16px; }
+  .fb-content { padding: 24px 14px 32px; border-radius: 0; }
+  .fb-card { padding: 18px; }
+  .fb-actions { justify-content: stretch; }
+  .fb-actions .fb-btn { flex: 1; }
+}
+
+
+.fb-message {
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.fb-message--success {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.fb-message--error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+}
+

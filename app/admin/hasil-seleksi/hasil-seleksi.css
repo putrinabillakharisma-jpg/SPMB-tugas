@@ -1,0 +1,361 @@
+
+.seleksi-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fc;
+}
+
+.hasil-seleksi-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px;
+  color: #202b46;
+}
+
+.hasil-seleksi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.hasil-seleksi-eyebrow {
+  color: #7183b7;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.hasil-seleksi-header h1 {
+  margin: 10px 0 8px;
+  font-size: 30px;
+  font-weight: 750;
+  letter-spacing: -0.8px;
+}
+
+.hasil-seleksi-header p,
+.hasil-panel-heading p {
+  margin: 0;
+  color: #8490a8;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.hasil-refresh {
+  flex-shrink: 0;
+  padding: 11px 16px;
+  border: 1px solid #dce4f2;
+  border-radius: 10px;
+  background: #fff;
+  color: #34466c;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.hasil-refresh:hover {
+  background: #edf3ff;
+}
+
+.hasil-refresh:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.hasil-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 26px;
+}
+
+.hasil-stat {
+  padding: 22px;
+  background: #fff;
+  border: 1px solid #e9edf6;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgb(31 55 100 / 3%);
+}
+
+.hasil-stat span,
+.hasil-stat small {
+  display: block;
+  color: #8390a8;
+  font-size: 12px;
+}
+
+.hasil-stat strong {
+  display: block;
+  margin: 13px 0 7px;
+  color: #24365a;
+  font-size: 29px;
+  font-weight: 750;
+}
+
+.hasil-stat small {
+  font-size: 11px;
+}
+
+.hasil-panel {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e8edf5;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgb(31 55 100 / 3%);
+}
+
+.hasil-panel-heading {
+  padding: 24px 24px 18px;
+}
+
+.hasil-panel-heading h2 {
+  margin: 0 0 7px;
+  color: #24365a;
+  font-size: 17px;
+  font-weight: 750;
+}
+
+.hasil-toolbar {
+  display: flex;
+  gap: 12px;
+  padding: 0 24px 22px;
+}
+
+.hasil-toolbar input,
+.hasil-toolbar select {
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid #e1e7f1;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #34415c;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.hasil-toolbar input {
+  flex: 1;
+  min-width: 0;
+}
+
+.hasil-toolbar input:focus,
+.hasil-toolbar select:focus,
+.hasil-select:focus,
+.hasil-catatan:focus {
+  border-color: #779cf7;
+  box-shadow: 0 0 0 3px rgb(92 137 245 / 10%);
+}
+
+.hasil-alert {
+  margin: 0 24px 18px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+.hasil-alert.error {
+  background: #fff0f0;
+  color: #b83232;
+}
+
+.hasil-alert.success {
+  background: #eafaf1;
+  color: #18784a;
+}
+
+.hasil-empty {
+  padding: 55px 20px;
+  text-align: center;
+  color: #8792a8;
+  font-size: 13px;
+}
+
+.hasil-empty-icon {
+  display: block;
+  margin-bottom: 12px;
+  color: #8ca7e9;
+  font-size: 35px;
+}
+
+.hasil-empty h3 {
+  margin: 0 0 8px;
+  color: #34415c;
+  font-size: 16px;
+}
+
+.hasil-empty p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.hasil-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.hasil-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+}
+
+.hasil-table th {
+  padding: 15px 16px;
+  border-top: 1px solid #edf0f6;
+  border-bottom: 1px solid #edf0f6;
+  background: #f8faff;
+  color: #77839d;
+  font-size: 10px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.hasil-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f0f2f7;
+  color: #53617c;
+  vertical-align: top;
+}
+
+.hasil-table tbody tr:hover {
+  background: #fbfcff;
+}
+
+.hasil-table td strong,
+.hasil-table td small {
+  display: block;
+}
+
+.hasil-table td strong {
+  margin-bottom: 6px;
+  color: #2e3c5a;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hasil-table td small {
+  color: #929db1;
+  font-size: 10px;
+}
+
+.hasil-table td .hasil-nilai {
+  color: #426fe0;
+  font-size: 16px;
+}
+
+.hasil-badge {
+  display: inline-block;
+  padding: 7px 9px;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hasil-badge.selesai {
+  background: #e5f8ed;
+  color: #218352;
+}
+
+.hasil-badge.belum {
+  background: #fff6dc;
+  color: #9b7616;
+}
+
+.hasil-select,
+.hasil-catatan {
+  width: 155px;
+  padding: 9px;
+  border: 1px solid #e0e6f0;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: #475673;
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.hasil-catatan {
+  width: 170px;
+  min-height: 55px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.hasil-save {
+  padding: 10px 13px;
+  border: none;
+  border-radius: 8px;
+  background: #426fe0;
+  color: #fff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hasil-save:hover {
+  background: #3159bf;
+}
+
+.hasil-save:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.hasil-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #edf0f6;
+  color: #8792a8;
+  font-size: 11px;
+}
+
+@media (max-width: 1100px) {
+  .hasil-seleksi-content {
+    padding: 24px;
+  }
+
+  .hasil-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .hasil-seleksi-content {
+    padding: 18px 12px;
+  }
+
+  .hasil-seleksi-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hasil-seleksi-header h1 {
+    font-size: 25px;
+  }
+
+  .hasil-stats {
+    gap: 10px;
+  }
+
+  .hasil-stat {
+    padding: 15px;
+  }
+
+  .hasil-stat strong {
+    font-size: 24px;
+  }
+
+  .hasil-toolbar {
+    flex-direction: column;
+    padding: 0 14px 18px;
+  }
+
+  .hasil-panel-heading {
+    padding: 20px 14px;
+  }
+}

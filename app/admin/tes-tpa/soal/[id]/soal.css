@@ -1,0 +1,265 @@
+
+.soal-main {
+  padding: 30px;
+}
+
+.soal-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  color: #718096;
+  font-size: 14px;
+}
+
+.soal-breadcrumb a {
+  color: #315dcc;
+  text-decoration: none;
+}
+
+.soal-breadcrumb strong {
+  color: #26344d;
+}
+
+.soal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.soal-header h1 {
+  margin: 0 0 8px;
+  color: #172b4d;
+  font-size: 28px;
+}
+
+.soal-header p,
+.soal-panel > p {
+  color: #718096;
+  line-height: 1.6;
+}
+
+.soal-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.soal-summary > div {
+  min-width: 150px;
+  padding: 18px 22px;
+  background: #fff;
+  border: 1px solid #e4eaf2;
+  border-radius: 14px;
+}
+
+.soal-summary span,
+.soal-summary strong {
+  display: block;
+}
+
+.soal-summary span {
+  margin-bottom: 8px;
+  color: #718096;
+  font-size: 13px;
+}
+
+.soal-summary strong {
+  color: #254fc0;
+  font-size: 25px;
+}
+
+.soal-panel {
+  margin-bottom: 22px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e4eaf2;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgb(30 50 90 / 4%);
+}
+
+.soal-panel h2 {
+  margin: 0 0 12px;
+  color: #20304b;
+  font-size: 19px;
+}
+
+.soal-import-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.soal-import-form input {
+  max-width: 100%;
+}
+
+.soal-note {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.soal-form {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.soal-form label {
+  display: grid;
+  gap: 8px;
+  color: #34445f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.soal-form input,
+.soal-form textarea,
+.soal-form select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #dce3ed;
+  border-radius: 9px;
+  background: #fff;
+  color: #24324a;
+  font: inherit;
+}
+
+.soal-form input:focus,
+.soal-form textarea:focus,
+.soal-form select:focus {
+  outline: 2px solid #dbe6ff;
+  border-color: #4774dc;
+}
+
+.soal-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.soal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 9px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.soal-button.primary {
+  background: #315dcc;
+  color: #fff;
+}
+
+.soal-button.secondary {
+  border: 1px solid #dce3ed;
+  background: #fff;
+  color: #34445f;
+}
+
+.soal-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.soal-alert {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.soal-alert.success {
+  background: #eaf8ef;
+  color: #206c3c;
+}
+
+.soal-alert.error {
+  background: #fff0f0;
+  color: #a52d35;
+}
+
+.soal-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.soal-item {
+  padding: 18px;
+  border: 1px solid #e4eaf2;
+  border-radius: 12px;
+}
+
+.soal-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.soal-item-top strong {
+  color: #315dcc;
+}
+
+.soal-item p {
+  color: #26344d;
+  line-height: 1.7;
+}
+
+.soal-item ol {
+  padding-left: 24px;
+  line-height: 1.8;
+  color: #52617a;
+}
+
+.soal-item small {
+  color: #247547;
+  font-weight: 600;
+}
+
+.soal-delete {
+  padding: 7px 12px;
+  border: 1px solid #f2caca;
+  border-radius: 8px;
+  background: #fff5f5;
+  color: #b42332;
+  cursor: pointer;
+}
+
+.soal-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+  .soal-main {
+    padding: 18px;
+  }
+
+  .soal-panel {
+    padding: 18px;
+  }
+
+  .soal-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .soal-header h1 {
+    font-size: 23px;
+  }
+}

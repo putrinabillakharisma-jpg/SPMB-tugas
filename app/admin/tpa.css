@@ -1,0 +1,1076 @@
+/* =========================================
+   DASAR LAYOUT
+========================================= */
+
+.tpa-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9ff;
+  color: #17245f;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tpa-main {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 22px;
+  background: #f8f9ff;
+}
+
+.tpa-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+  color: #8590ac;
+  font-size: 11px;
+}
+
+.tpa-breadcrumb a {
+  color: #2868e8;
+  text-decoration: none;
+}
+
+.tpa-breadcrumb strong {
+  color: #17245f;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.tpa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.tpa-header h1 {
+  margin: 0;
+  color: #171d78;
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -0.4px;
+}
+
+.tpa-header p {
+  margin: 7px 0 0;
+  color: #7885a7;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.tpa-header-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+/* Tombol halaman Tes TPA */
+
+.tpa-primary-btn,
+.tpa-outline-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid #2868e8;
+  border-radius: 8px;
+  background: #2868e8;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tpa-primary-btn:hover {
+  background: #1958d3;
+}
+
+.tpa-outline-btn {
+  border-color: #dce4fa;
+  background: #fff;
+  color: #2868e8;
+}
+
+.tpa-outline-btn:hover {
+  background: #eef4ff;
+}
+
+/* Tombol halaman Hasil Tes */
+
+.tpa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.tpa-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.tpa-btn-primary {
+  border-color: #2868e8;
+  background: #2868e8;
+  color: #fff;
+}
+
+.tpa-btn-primary:hover {
+  background: #1958d3;
+}
+
+.tpa-btn-secondary {
+  border-color: #dce4fa;
+  background: #fff;
+  color: #2868e8;
+}
+
+.tpa-btn-secondary:hover {
+  background: #eef4ff;
+}
+
+/* =========================================
+   ALERT / PESAN
+========================================= */
+
+.tpa-alert {
+  margin-bottom: 14px;
+  padding: 11px 14px;
+  border: 1px solid #b9d3ff;
+  border-radius: 8px;
+  background: #edf4ff;
+  color: #245bd0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.tpa-alert-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-color: #ffcaca;
+  background: #fff0f0;
+  color: #c62828;
+}
+
+.tpa-alert-error button {
+  padding: 5px 10px;
+  border: 1px solid #f1b7b7;
+  border-radius: 6px;
+  background: #fff;
+  color: #c62828;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tpa-alert-error button:hover {
+  background: #fff7f7;
+}
+
+/* =========================================
+   KARTU STATISTIK
+========================================= */
+
+.tpa-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.tpa-stat-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  min-width: 0;
+  min-height: 91px;
+  padding: 15px 13px;
+  border: 1px solid #dce4fa;
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 0 2px 7px #243a8108;
+}
+
+.tpa-stat-icon {
+  display: flex;
+  flex: 0 0 34px;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tpa-stat-icon.blue {
+  background: #e2edff;
+  color: #3579f6;
+}
+
+.tpa-stat-icon.green {
+  background: #dcf8e7;
+  color: #159a55;
+}
+
+.tpa-stat-icon.orange {
+  background: #fff0d9;
+  color: #ff9419;
+}
+
+.tpa-stat-icon.purple {
+  background: #eee8ff;
+  color: #7950df;
+}
+
+.tpa-stat-card p {
+  margin: 0 0 4px;
+  color: #6c7a9c;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.tpa-stat-card h2 {
+  margin: 0 0 5px;
+  color: #171d78;
+  font-size: 23px;
+  line-height: 1.1;
+}
+
+.tpa-stat-card span {
+  color: #8792ae;
+  font-size: 9px;
+}
+
+/* =========================================
+   PANEL TES DAN HASIL TES
+========================================= */
+
+.tpa-panel,
+.tpa-content-card {
+  min-width: 0;
+  padding: 16px 14px 12px;
+  border: 1px solid #dce4fa;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px #263d8308;
+}
+
+.tpa-panel-heading,
+.tpa-content-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 13px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf0fa;
+}
+
+.tpa-panel-heading h2,
+.tpa-content-heading h2 {
+  margin: 0;
+  color: #17245f;
+  font-size: 15px;
+}
+
+.tpa-panel-heading p,
+.tpa-content-heading p {
+  margin: 6px 0 0;
+  color: #8590ac;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   PENCARIAN DAN FILTER
+========================================= */
+
+.tpa-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 14px 0;
+}
+
+.tpa-search {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex: 1 1 220px;
+  gap: 8px;
+  height: 37px;
+  padding: 0 11px;
+  border: 1px solid #dce4fa;
+  border-radius: 8px;
+  background: #fbfcff;
+  color: #8290b2;
+}
+
+.tpa-search:focus-within {
+  border-color: #2868e8;
+  box-shadow: 0 0 0 3px #2868e81a;
+}
+
+.tpa-search span {
+  font-size: 18px;
+}
+
+.tpa-search input {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #17245f;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+}
+
+.tpa-search input::placeholder {
+  color: #929db8;
+}
+
+.tpa-search input:focus {
+  outline: none;
+}
+
+.tpa-toolbar select,
+.tpa-filter-select {
+  box-sizing: border-box;
+  min-width: 160px;
+  height: 37px;
+  padding: 0 10px;
+  border: 1px solid #dce4fa;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: #4e5e86;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+}
+
+.tpa-toolbar select:focus,
+.tpa-filter-select:focus {
+  border-color: #2868e8;
+}
+
+/* =========================================
+   TABEL
+========================================= */
+
+.tpa-table-wrap,
+.tpa-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.tpa-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.tpa-table th {
+  padding: 12px 10px;
+  background: #eef3ff;
+  color: #273773;
+  font-size: 10px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.tpa-table th:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+.tpa-table th:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+.tpa-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #edf0fa;
+  color: #536183;
+  font-size: 10px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.tpa-table td strong {
+  color: #243574;
+  font-weight: 700;
+}
+
+.tpa-table tbody tr:hover {
+  background: #f4f7ff;
+}
+
+.tpa-empty {
+  padding: 35px 12px !important;
+  color: #8590ac !important;
+  text-align: center;
+  white-space: normal !important;
+}
+
+.tpa-table-footer,
+.tpa-footer {
+  padding-top: 13px;
+  color: #7885a7;
+  font-size: 10px;
+}
+
+/* =========================================
+   TAMPILAN NAMA TES DAN PESERTA
+========================================= */
+
+.tpa-test-name {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 170px;
+}
+
+.tpa-test-symbol {
+  display: flex;
+  flex: 0 0 34px;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #e7efff;
+  color: #2868e8;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.tpa-test-name > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tpa-test-name strong {
+  color: #243574;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.tpa-test-name small {
+  color: #929db8;
+  font-size: 9px;
+}
+
+.tpa-person-avatar {
+  display: flex;
+  flex: 0 0 31px;
+  align-items: center;
+  justify-content: center;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  background: #e4edff;
+  color: #3475ec;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+/* =========================================
+   STATUS TES DAN HASIL TES
+========================================= */
+
+.tpa-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tpa-status.aktif,
+.tpa-status.status-selesai {
+  background: #ddf7e7;
+  color: #118647;
+}
+
+.tpa-status.draft,
+.tpa-status.status-draft {
+  background: #fff0d9;
+  color: #b96800;
+}
+
+.tpa-status.selesai {
+  background: #eef1f7;
+  color: #697793;
+}
+
+.tpa-status.status-aktif {
+  background: #e2edff;
+  color: #2868e8;
+}
+
+/* =========================================
+   TOMBOL AKSI TABEL
+========================================= */
+
+.tpa-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tpa-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tpa-icon-btn.edit {
+  border-color: #ffdfae;
+  background: #fff5e5;
+  color: #d77a00;
+}
+
+.tpa-icon-btn.status {
+  border-color: #d4e2ff;
+  background: #eaf1ff;
+  color: #2868e8;
+}
+
+.tpa-icon-btn.delete {
+  border-color: #ffd2d2;
+  background: #fff0f0;
+  color: #e23c45;
+}
+
+.tpa-icon-btn:hover {
+  filter: brightness(0.97);
+}
+
+.tpa-icon-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Tombol Kelola Soal */
+
+.tpa-soal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 27px;
+  padding: 0 9px;
+  border: 1px solid #d4e2ff;
+  border-radius: 6px;
+  background: #eaf1ff;
+  color: #2868e8;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tpa-soal-btn:hover {
+  border-color: #2868e8;
+  background: #dce8ff;
+}
+
+.tpa-soal-btn:focus-visible {
+  outline: 2px solid #2868e8;
+  outline-offset: 2px;
+}
+
+/* Nilai tes */
+
+.tpa-score {
+  color: #13884c;
+  font-size: 12px;
+}
+
+.tpa-score-empty {
+  color: #a0a9bd;
+  font-size: 10px;
+}
+
+/* =========================================
+   MODAL FORM TES
+========================================= */
+
+.tpa-modal-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgb(15 24 74 / 48%);
+  backdrop-filter: blur(4px);
+}
+
+.tpa-modal {
+  width: 100%;
+  max-width: 540px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 24px;
+  border: 1px solid #dce4fa;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 20px 70px #0c194833;
+}
+
+.tpa-modal-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.tpa-modal-heading p {
+  margin: 0 0 6px;
+  color: #2868e8;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1px;
+}
+
+.tpa-modal-heading h2 {
+  margin: 0;
+  color: #171d78;
+  font-size: 21px;
+}
+
+.tpa-close {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #dce4fa;
+  border-radius: 8px;
+  background: #fff;
+  color: #667395;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.tpa-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tpa-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #34416e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.tpa-form input,
+.tpa-form textarea,
+.tpa-form select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 41px;
+  padding: 10px 12px;
+  border: 1px solid #dce4f6;
+  border-radius: 8px;
+  outline: none;
+  background: #fbfcff;
+  color: #17245f;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.tpa-form textarea {
+  resize: vertical;
+}
+
+.tpa-form input:focus,
+.tpa-form textarea:focus,
+.tpa-form select:focus {
+  border-color: #2868e8;
+  box-shadow: 0 0 0 3px #2868e81a;
+}
+
+.tpa-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.tpa-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  padding-top: 15px;
+  border-top: 1px solid #edf0fa;
+}
+
+.tpa-cancel-btn {
+  min-height: 36px;
+  padding: 0 15px;
+  border: 1px solid #dce4fa;
+  border-radius: 8px;
+  background: #fff;
+  color: #59678a;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tpa-cancel-btn:hover {
+  background: #f4f7ff;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1150px) {
+  .tpa-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .tpa-main {
+    padding: 15px 10px;
+  }
+
+  .tpa-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .tpa-header h1 {
+    font-size: 22px;
+  }
+
+  .tpa-header-actions {
+    width: 100%;
+  }
+
+  .tpa-header-actions .tpa-btn {
+    flex: 1;
+  }
+
+  .tpa-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .tpa-panel,
+  .tpa-content-card {
+    padding: 11px 9px;
+  }
+
+  .tpa-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .tpa-search,
+  .tpa-toolbar select,
+  .tpa-filter-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .tpa-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .tpa-modal {
+    padding: 17px;
+  }
+
+  .tpa-form-actions {
+    flex-wrap: wrap;
+  }
+}
+
+/* ===== ADMIN SIDEBAR ===== */
+
+.admin-sidebar {
+  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  background: #ffffff;
+  border-right: 1px solid #e5eaf5;
+  box-sizing: border-box;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.admin-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 28px;
+  text-decoration: none;
+  color: #202d72;
+}
+
+.admin-sidebar-logo {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #4678f5, #7564ed);
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.admin-brand-text h2 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.admin-brand-text p {
+  margin: 5px 0 0;
+  color: #7a86a6;
+  font-size: 12px;
+}
+
+.admin-sidebar-label {
+  margin: 4px 8px 12px;
+  color: #98a1b7;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.admin-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.admin-menu-group {
+  width: 100%;
+}
+
+.admin-menu-item {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #59647f;
+  font-family: inherit;
+  font-size: 13px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.admin-menu-item:hover {
+  background: #f0f4ff;
+  color: #315eea;
+}
+
+.admin-menu-item.active {
+  background: #eaf0ff;
+  color: #315eea;
+  font-weight: 600;
+}
+
+.admin-menu-icon {
+  width: 20px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 18px;
+}
+
+.admin-menu-text {
+  flex: 1;
+}
+
+.admin-menu-arrow {
+  margin-left: auto;
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.admin-menu-arrow.open {
+  transform: rotate(180deg);
+}
+
+.admin-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 5px 0 8px 25px;
+  padding-left: 13px;
+  border-left: 1px solid #e1e7f5;
+}
+
+.admin-submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 8px;
+  border-radius: 7px;
+  color: #77819a;
+  font-size: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.admin-submenu-item:hover,
+.admin-submenu-item.active {
+  background: #f0f4ff;
+  color: #315eea;
+}
+
+.admin-submenu-dot {
+  font-size: 17px;
+}
+
+.admin-sidebar-bottom {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.admin-sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 4px;
+  border-top: 1px solid #edf0f7;
+}
+
+.admin-profile-avatar {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e9edff;
+  color: #315eea;
+  font-weight: 700;
+}
+
+.admin-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.admin-profile-info strong {
+  color: #27345f;
+  font-size: 12px;
+}
+
+.admin-profile-info span {
+  color: #8b94aa;
+  font-size: 11px;
+}
+
+.admin-logout-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #d34d5c;
+  font-family: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.admin-logout-button:hover {
+  background: #fff0f1;
+}
+
+@media (max-width: 760px) {
+  .admin-sidebar {
+    width: 210px;
+    min-width: 210px;
+    padding: 18px 10px;
+  }
+
+  .admin-brand-text h2 {
+    font-size: 21px;
+  }
+
+  .admin-menu-item {
+    gap: 8px;
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+}

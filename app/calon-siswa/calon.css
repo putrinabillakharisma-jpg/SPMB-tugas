@@ -1,0 +1,203 @@
+/* =========================================================
+   calon.css — Beranda Calon Siswa (Portal SPMB)
+   ========================================================= */
+
+.calon-layout {
+  --navy: #14197a;
+  --blue: #1565d8;
+  --blue-soft: #eef5ff;
+  --green: #16a34a;
+  --text: #111827;
+  --muted: #6b7280;
+
+  display: flex;
+  min-height: 100vh;
+  background: #fbfaff;
+  font-family: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--text);
+}
+
+.calon-layout *,
+.calon-layout *::before,
+.calon-layout *::after { box-sizing: border-box; }
+
+/* ---------------- Sidebar ---------------- */
+.calon-sidebar {
+  width: 205px;
+  flex-shrink: 0;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 4px 28px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.calon-brand { display: flex; align-items: center; gap: 10px; padding: 0 12px 28px; }
+.calon-brand__logo {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #d9a521; color: var(--navy);
+  border: 2px solid #f4d36b;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 800;
+}
+.calon-brand__title { font-size: 24px; font-weight: 800; line-height: 1.05; letter-spacing: .5px; }
+.calon-brand__sub { font-size: 12px; opacity: .9; }
+
+.calon-nav { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.calon-nav__item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  color: #fff; text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  border-radius: 4px;
+  transition: background .15s ease;
+}
+.calon-nav__item:hover { background: rgba(255, 255, 255, .08); }
+.calon-nav__item.is-active { background: var(--blue); }
+
+.calon-logout {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 12px;
+  background: transparent; border: 0; color: #fff;
+  padding: 10px 24px; font-size: 14px; font-family: inherit; cursor: pointer;
+  margin-bottom: 140px;
+}
+
+/* ---------------- Main ---------------- */
+.calon-main { flex: 1; min-width: 0; display: flex; flex-direction: column; background: #fbfaff; }
+
+.calon-topbar {
+  height: 46px; background: #fff;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 0 40px;
+}
+.calon-profile { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+.calon-profile__avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #e5e7eb; color: #374151;
+  border: 1.5px solid #374151;
+  display: grid; place-items: center; overflow: hidden;
+}
+
+.calon-content {
+  flex: 1;
+  margin: 0 0 0 2px;
+  padding: 0 18px 40px;
+  background: var(--blue-soft);
+  border-radius: 14px 0 0 0;
+  min-height: calc(100vh - 46px);
+}
+
+/* ---------------- Hero ---------------- */
+.calon-hero {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding: 36px 20px 0;
+  min-height: 146px;
+  position: relative;
+}
+.calon-hero__greet {
+  margin: 0 0 6px;
+  font-size: 26px; font-weight: 500; color: var(--navy);
+  display: flex; align-items: baseline; gap: 6px;
+}
+.calon-hero__greet span:not(.calon-wave) { font-size: 20px; font-weight: 700; }
+.calon-wave { font-size: 22px; }
+.calon-hero__desc { margin: 0; font-size: 17px; line-height: 1.3; color: #111827; padding-bottom: 10px; }
+.calon-hero__img { align-self: flex-end; margin-right: 40px; line-height: 0; }
+.calon-hero__img img { width: 150px; height: auto; object-fit: contain; }
+
+/* ---------------- Stepper ---------------- */
+.calon-steps {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 28px 20px;
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+.calon-step {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+}
+
+.calon-step__circle {
+  width: 66px; height: 66px; border-radius: 50%;
+  display: grid; place-items: center;
+  position: relative; z-index: 1;
+}
+.calon-step__circle.is-done { background: var(--green); color: #fff; }
+.calon-step__circle.is-progress { background: var(--blue); color: #fff; }
+.calon-step__circle.is-todo { background: #fff; color: #1f2937; border: 1px solid #c7c9f0; }
+
+.calon-step__label { font-size: 14px; margin-top: 12px; color: #1f2937; }
+.calon-step__status { font-size: 8px; margin-top: 8px; }
+.calon-step__status.is-done { color: var(--green); }
+.calon-step__status.is-progress { color: var(--blue); }
+.calon-step__status.is-todo { color: #4b5563; }
+
+/* Garis penghubung antar langkah */
+.calon-step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 33px;
+  left: calc(50% + 33px);
+  width: calc(100% - 66px);
+  height: 1px;
+  background: #a9aee6;
+}
+
+/* Titik navy di tengah garis */
+.calon-step__dot {
+  position: absolute;
+  top: 29px;
+  left: calc(100% - 4px);
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid #c8cbf5;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* ---------------- Banner ---------------- */
+.calon-banner {
+  margin-top: 52px;
+  background: #86b4ea;
+  border-radius: 14px;
+  padding: 24px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.calon-banner__left { display: flex; align-items: center; gap: 18px; }
+.calon-banner__icon { color: #dc2626; display: inline-flex; }
+.calon-banner p { margin: 0; font-size: 14px; font-weight: 700; line-height: 1.25; color: #0b0f2a; }
+.calon-banner__btn {
+  background: var(--blue); color: #fff; text-decoration: none;
+  font-size: 14px; font-weight: 700;
+  padding: 11px 22px; border-radius: 4px;
+  white-space: nowrap;
+  transition: filter .15s ease;
+}
+.calon-banner__btn:hover { filter: brightness(1.08); }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 1000px) {
+  .calon-steps { grid-template-columns: repeat(3, 1fr); row-gap: 28px; }
+  .calon-step::before, .calon-step__dot { display: none; }
+}
+
+@media (max-width: 760px) {
+  .calon-sidebar { display: none; }
+  .calon-topbar { padding: 0 16px; }
+  .calon-content { border-radius: 0; padding: 0 12px 28px; }
+  .calon-hero { flex-direction: column; align-items: flex-start; padding: 24px 8px 0; }
+  .calon-hero__img { align-self: flex-end; margin-right: 0; }
+  .calon-hero__greet { font-size: 22px; }
+  .calon-hero__desc { font-size: 15px; }
+  .calon-steps { grid-template-columns: repeat(2, 1fr); padding: 18px; }
+  .calon-banner { flex-direction: column; align-items: flex-start; margin-top: 28px; }
+}
