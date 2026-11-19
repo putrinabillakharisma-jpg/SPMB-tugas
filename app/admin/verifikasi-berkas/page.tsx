@@ -25,6 +25,11 @@ type Berkas = {
   tanggal_verifikasi: string | null;
 };
 
+type DraftBerkas = {
+  status: StatusBerkas;
+  catatan: string;
+};
+
 const statusOptions: StatusBerkas[] = [
   "Belum Diverifikasi",
   "Terverifikasi",
@@ -35,14 +40,18 @@ export default function VerifikasiBerkasPage() {
   const [data, setData] = useState<Berkas[]>([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("Semua");
+
   const [drafts, setDrafts] = useState<
-    Record<number, { status: StatusBerkas; catatan: string }>
+    Record<number, DraftBerkas>
   >({});
+
   const [loading, setLoading] = useState(true);
   const [savingId, setSavingId] = useState<number | null>(null);
+
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
+  // Mengambil data berkas dari database
   const loadData = useCallback(async () => {
     setLoading(true);
     setError("");
@@ -50,39 +59,51 @@ export default function VerifikasiBerkasPage() {
     try {
       const params = new URLSearchParams();
 
-      if (search.trim()) params.set("cari", search.trim());
-      if (filter !== "Semua") params.set("status", filter);
+      if (search.trim()) {
+        params.set("cari", search.trim());
+      }
+
+      if (filter !== "Semua") {
+        params.set("status", filter);
+      }
 
       const response = await fetch(
         `/api/admin/seleksi/berkas?${params.toString()}`,
-        { cache: "no-store" }
+        {
+          method: "GET",
+          cache: "no-store",
+        }
       );
 
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Gagal mengambil data.");
+        throw new Error(
+          result.message || "Gagal mengambil data berkas."
+        );
       }
 
-      setData(result.data || []);
+      const rows: Berkas[] = result.data || [];
 
-      setDrafts((previous) => {
-        const next = { ...previous };
+      setData(rows);
 
-        for (const item of result.data || []) {
-          if (!next[item.id]) {
-            next[item.id] = {
+      // Sinkronkan draft dengan data terbaru dari database.
+      setDrafts(
+        Object.fromEntries(
+          rows.map((item) => [
+            item.id,
+            {
               status: item.status_verifikasi,
               catatan: item.catatan_admin || "",
-            };
-          }
-        }
-
-        return next;
-      });
+            },
+          ])
+        )
+      );
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Terjadi kesalahan."
+        err instanceof Error
+          ? err.message
+          : "Terjadi kesalahan."
       );
     } finally {
       setLoading(false);
@@ -93,13 +114,14 @@ export default function VerifikasiBerkasPage() {
     void loadData();
   }, [loadData]);
 
+  // Mengubah draft keputusan admin
   function updateDraft(
     id: number,
     field: "status" | "catatan",
     value: string
   ) {
     setDrafts((previous) => {
-      const item = data.find((row) => row.id === id);
+      const current = previous[id];
 
       return {
         ...previous,
@@ -107,27 +129,31 @@ export default function VerifikasiBerkasPage() {
           status:
             field === "status"
               ? (value as StatusBerkas)
-              : previous[id]?.status ||
-                item?.status_verifikasi ||
-                "Belum Diverifikasi",
+              : current?.status || "Belum Diverifikasi",
+
           catatan:
             field === "catatan"
               ? value
-              : previous[id]?.catatan || "",
+              : current?.catatan || "",
         },
       };
     });
   }
 
+  // Menyimpan keputusan verifikasi
   async function saveVerification(id: number) {
     const draft = drafts[id];
+
     if (!draft) return;
 
     if (
       draft.status === "Perlu Revisi" &&
       !draft.catatan.trim()
     ) {
-      setError("Isi catatan admin sebelum meminta revisi.");
+      setError(
+        "Isi catatan admin sebelum meminta revisi."
+      );
+      setNotice("");
       return;
     }
 
@@ -136,118 +162,183 @@ export default function VerifikasiBerkasPage() {
     setNotice("");
 
     try {
-      const response = await fetch("/api/admin/seleksi/berkas", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id,
-          status_verifikasi: draft.status,
-          catatan_admin: draft.catatan,
-        }),
-      });
+      const response = await fetch(
+        "/api/admin/seleksi/berkas",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id,
+            status_verifikasi: draft.status,
+            catatan_admin: draft.catatan,
+          }),
+        }
+      );
 
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Gagal menyimpan perubahan.");
+        throw new Error(
+          result.message || "Gagal menyimpan perubahan."
+        );
       }
 
-      setNotice(result.message);
+      setNotice(
+        result.message ||
+          "Verifikasi berkas berhasil disimpan."
+      );
+
       await loadData();
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Terjadi kesalahan."
+        err instanceof Error
+          ? err.message
+          : "Terjadi kesalahan."
       );
     } finally {
       setSavingId(null);
     }
   }
 
+  // Statistik berdasarkan data yang sedang ditampilkan
   const total = data.length;
+
   const terverifikasi = data.filter(
-    (item) => item.status_verifikasi === "Terverifikasi"
+    (item) =>
+      item.status_verifikasi === "Terverifikasi"
   ).length;
+
   const revisi = data.filter(
-    (item) => item.status_verifikasi === "Perlu Revisi"
+    (item) =>
+      item.status_verifikasi === "Perlu Revisi"
   ).length;
+
   const belum = data.filter(
-    (item) => item.status_verifikasi === "Belum Diverifikasi"
+    (item) =>
+      item.status_verifikasi === "Belum Diverifikasi"
   ).length;
+
+  function formatTanggal(value: string | null) {
+    if (!value) return "-";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) return "-";
+
+    return date.toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  }
 
   return (
     <div className="seleksi-layout">
       <AdminSidebar />
 
       <main className="verifikasi-content">
+        {/* HEADER */}
         <header className="verifikasi-header">
           <div>
             <span className="verifikasi-eyebrow">
               ADMIN / SELEKSI CALON SISWA
             </span>
+
             <h1>Verifikasi Berkas</h1>
+
             <p>
-              Periksa dokumen pendaftaran dan perbarui status
-              verifikasi calon siswa.
+              Periksa dokumen pendaftaran dan perbarui
+              status verifikasi calon siswa.
             </p>
           </div>
 
           <button
+            type="button"
             className="verifikasi-refresh"
             onClick={() => void loadData()}
             disabled={loading}
           >
-            ↻ Muat Ulang
+            ↻ {loading ? "Memuat..." : "Muat Ulang"}
           </button>
         </header>
 
+        {/* STATISTIK */}
         <section className="verifikasi-stats">
           <article className="verifikasi-stat">
-            <span>Total hasil pencarian</span>
+            <div className="verifikasi-stat-icon blue">
+              ▤
+            </div>
+            <span>Total dokumen</span>
             <strong>{total}</strong>
             <small>Dokumen ditampilkan</small>
           </article>
 
           <article className="verifikasi-stat">
+            <div className="verifikasi-stat-icon orange">
+              ◷
+            </div>
             <span>Belum diverifikasi</span>
             <strong>{belum}</strong>
             <small>Menunggu pemeriksaan</small>
           </article>
 
           <article className="verifikasi-stat">
+            <div className="verifikasi-stat-icon green">
+              ✓
+            </div>
             <span>Terverifikasi</span>
             <strong>{terverifikasi}</strong>
             <small>Dokumen disetujui</small>
           </article>
 
           <article className="verifikasi-stat">
+            <div className="verifikasi-stat-icon red">
+              !
+            </div>
             <span>Perlu revisi</span>
             <strong>{revisi}</strong>
             <small>Perlu diperbaiki</small>
           </article>
         </section>
 
+        {/* DATA BERKAS */}
         <section className="verifikasi-panel">
           <div className="verifikasi-panel-heading">
             <div>
               <h2>Data Berkas Calon Siswa</h2>
-              <p>Periksa dokumen satu per satu sebelum menyetujui.</p>
+              <p>
+                Periksa dokumen satu per satu sebelum
+                memberikan keputusan.
+              </p>
             </div>
           </div>
 
+          {/* PENCARIAN DAN FILTER */}
           <div className="verifikasi-toolbar">
-            <input
-              type="search"
-              placeholder="Cari nama, NISN, atau jenis berkas..."
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-            />
+            <div className="verifikasi-search">
+              <span>⌕</span>
+
+              <input
+                type="search"
+                placeholder="Cari nama, NISN, atau jenis berkas..."
+                value={search}
+                onChange={(event) =>
+                  setSearch(event.target.value)
+                }
+              />
+            </div>
 
             <select
               value={filter}
-              onChange={(event) => setFilter(event.target.value)}
+              onChange={(event) =>
+                setFilter(event.target.value)
+              }
               aria-label="Filter status verifikasi"
             >
               <option value="Semua">Semua status</option>
+
               {statusOptions.map((status) => (
                 <option key={status} value={status}>
                   {status}
@@ -256,27 +347,42 @@ export default function VerifikasiBerkasPage() {
             </select>
           </div>
 
+          {/* PESAN */}
           {error && (
-            <div className="verifikasi-alert error" role="alert">
+            <div
+              className="verifikasi-alert error"
+              role="alert"
+            >
               {error}
             </div>
           )}
 
           {notice && (
-            <div className="verifikasi-alert success" role="status">
+            <div
+              className="verifikasi-alert success"
+              role="status"
+            >
               {notice}
             </div>
           )}
 
+          {/* LOADING */}
           {loading ? (
-            <div className="verifikasi-empty">Memuat data berkas...</div>
+            <div className="verifikasi-empty">
+              <div className="verifikasi-loader" />
+              <p>Memuat data berkas...</p>
+            </div>
           ) : data.length === 0 ? (
             <div className="verifikasi-empty">
-              <span className="verifikasi-empty-icon">▤</span>
+              <span className="verifikasi-empty-icon">
+                ▤
+              </span>
+
               <h3>Belum ada data berkas</h3>
+
               <p>
-                Data akan muncul setelah calon siswa mengunggah dokumen
-                ke sistem.
+                Data akan muncul setelah calon siswa
+                mengunggah dokumen ke sistem.
               </p>
             </div>
           ) : (
@@ -284,18 +390,20 @@ export default function VerifikasiBerkasPage() {
               <table className="verifikasi-table">
                 <thead>
                   <tr>
-                    <th>Calon Siswa</th>
-                    <th>Jenis Berkas</th>
-                    <th>Dokumen</th>
-                    <th>Status Saat Ini</th>
-                    <th>Keputusan Admin</th>
-                    <th>Catatan Admin</th>
-                    <th>Aksi</th>
+                    <th>NO</th>
+                    <th>CALON SISWA</th>
+                    <th>JENIS BERKAS</th>
+                    <th>DOKUMEN</th>
+                    <th>TANGGAL UPLOAD</th>
+                    <th>STATUS SAAT INI</th>
+                    <th>KEPUTUSAN ADMIN</th>
+                    <th>CATATAN ADMIN</th>
+                    <th>AKSI</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {data.map((item) => {
+                  {data.map((item, index) => {
                     const draft = drafts[item.id] || {
                       status: item.status_verifikasi,
                       catatan: item.catatan_admin || "",
@@ -303,30 +411,54 @@ export default function VerifikasiBerkasPage() {
 
                     return (
                       <tr key={item.id}>
+                        <td>{index + 1}</td>
+
                         <td>
-                          <strong>{item.nama || "Data tidak ditemukan"}</strong>
-                          <small>NISN: {item.nisn || "-"}</small>
+                          <strong>
+                            {item.nama ||
+                              "Data tidak ditemukan"}
+                          </strong>
+
+                          <small>
+                            NISN: {item.nisn || "-"}
+                          </small>
                         </td>
 
-                        <td>{item.jenis_berkas}</td>
+                        <td>
+                          <span className="verifikasi-jenis">
+                            {item.jenis_berkas}
+                          </span>
+                        </td>
 
                         <td>
-                          <a
-                            className="verifikasi-file-link"
-                            href={item.path_file}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            ↗ {item.nama_file}
-                          </a>
+                          {item.path_file ? (
+                            <a
+                              className="verifikasi-file-link"
+                              href={item.path_file}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              ↗ {item.nama_file}
+                            </a>
+                          ) : (
+                            <span className="verifikasi-no-file">
+                              File tidak tersedia
+                            </span>
+                          )}
+                        </td>
+
+                        <td>
+                          {formatTanggal(item.tanggal_upload)}
                         </td>
 
                         <td>
                           <span
                             className={`verifikasi-badge ${
-                              item.status_verifikasi === "Terverifikasi"
+                              item.status_verifikasi ===
+                              "Terverifikasi"
                                 ? "approved"
-                                : item.status_verifikasi === "Perlu Revisi"
+                                : item.status_verifikasi ===
+                                    "Perlu Revisi"
                                   ? "revision"
                                   : "pending"
                             }`}
@@ -346,10 +478,15 @@ export default function VerifikasiBerkasPage() {
                                 event.target.value
                               )
                             }
-                            aria-label={`Keputusan untuk ${item.nama || item.id}`}
+                            aria-label={`Keputusan untuk ${
+                              item.nama || item.id
+                            }`}
                           >
                             {statusOptions.map((status) => (
-                              <option key={status} value={status}>
+                              <option
+                                key={status}
+                                value={status}
+                              >
                                 {status}
                               </option>
                             ))}
@@ -374,8 +511,11 @@ export default function VerifikasiBerkasPage() {
 
                         <td>
                           <button
+                            type="button"
                             className="verifikasi-save"
-                            onClick={() => void saveVerification(item.id)}
+                            onClick={() =>
+                              void saveVerification(item.id)
+                            }
                             disabled={savingId === item.id}
                           >
                             {savingId === item.id
@@ -388,6 +528,14 @@ export default function VerifikasiBerkasPage() {
                   })}
                 </tbody>
               </table>
+            </div>
+          )}
+
+          {/* INFORMASI */}
+          {!loading && data.length > 0 && (
+            <div className="verifikasi-footer">
+              Menampilkan {total} dokumen berdasarkan
+              pencarian dan filter yang dipilih.
             </div>
           )}
         </section>

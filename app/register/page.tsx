@@ -7,44 +7,45 @@ import "./register.css";
 export default function RegisterSPMB() {
   const [showPassword, setShowPassword] = useState(false);
   const [nama, setNama] = useState("");
+  const [email, setEmail] = useState("");
   const [nisn, setNisn] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [password, setPassword] = useState("");
   const [setuju, setSetuju] = useState(true);
 
-  
-async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  try {
-    const response = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nama,
-        nisn,
-        whatsapp,
-        password,
-        setuju,
-      }),
-    });
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nama,
+          email,
+          nisn,
+          whatsapp,
+          password,
+          setuju,
+        }),
+      });
 
-    const result = await response.json();
+      const result = await response.json();
 
-    if (!response.ok) {
-      alert(result.message || "Pendaftaran gagal.");
-      return;
+      if (!response.ok) {
+        alert(result.message || "Pendaftaran gagal.");
+        return;
+      }
+
+      alert(result.message);
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Kesalahan registrasi:", error);
+      alert("Tidak dapat terhubung ke server.");
     }
-
-    alert(result.message);
-    window.location.href = "/login";
-  } catch (error) {
-    console.error("Kesalahan registrasi:", error);
-    alert("Tidak dapat terhubung ke server. Periksa koneksi dan server Next.js.");
   }
-}
 
   return (
     <main className="register-page">
@@ -55,7 +56,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
             <div className="welcome-content">
               <div className="school-brand">
                 <div className="school-seal">
-                  <img src="/asset/logo cn.png" alt="" />
+                  <img src="/asset/logo cn.png" alt="Logo sekolah" />
                 </div>
 
                 <div className="brand-text">
@@ -97,6 +98,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
               </header>
 
               <form onSubmit={handleSubmit} className="register-form">
+                {/* NAMA */}
                 <label className="input-group">
                   <span className="sr-only">Nama Lengkap</span>
                   <span className="field-icon">
@@ -105,6 +107,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                       <path d="M4 21c0-4.2 3.6-7 8-7s8 2.8 8 7" />
                     </svg>
                   </span>
+
                   <input
                     type="text"
                     placeholder="Nama Lengkap"
@@ -115,6 +118,27 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                   />
                 </label>
 
+                {/* EMAIL BARU */}
+                <label className="input-group">
+                  <span className="sr-only">Email</span>
+                  <span className="field-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="m3 7 9 6 9-6" />
+                    </svg>
+                  </span>
+
+                  <input
+                    type="email"
+                    placeholder="Alamat Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    required
+                  />
+                </label>
+
+                {/* NISN */}
                 <label className="input-group">
                   <span className="sr-only">NISN</span>
                   <span className="field-icon">
@@ -123,6 +147,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                       <path d="M7 10h10M7 14h5" />
                     </svg>
                   </span>
+
                   <input
                     type="text"
                     placeholder="NISN"
@@ -136,6 +161,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                   />
                 </label>
 
+                {/* WHATSAPP */}
                 <label className="input-group">
                   <span className="sr-only">Nomor WhatsApp</span>
                   <span className="field-icon">
@@ -144,6 +170,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                       <path d="M11 18h2" />
                     </svg>
                   </span>
+
                   <input
                     type="tel"
                     placeholder="No. WhatsApp"
@@ -155,6 +182,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                   />
                 </label>
 
+                {/* PASSWORD */}
                 <label className="input-group password-group">
                   <span className="sr-only">Kata Sandi</span>
                   <span className="field-icon">
@@ -163,6 +191,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                       <path d="M8 10V7a4 4 0 0 1 8 0v3" />
                     </svg>
                   </span>
+
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Kata Sandi"
@@ -172,18 +201,22 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                     minLength={8}
                     required
                   />
+
                   <button
                     type="button"
                     className="show-password"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={
-                      showPassword ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"
+                      showPassword
+                        ? "Sembunyikan kata sandi"
+                        : "Tampilkan kata sandi"
                     }
                   >
                     {showPassword ? "SEMBUNYIKAN" : "TAMPILKAN"}
                   </button>
                 </label>
 
+                {/* PERSETUJUAN */}
                 <label className="terms-row">
                   <input
                     type="checkbox"
@@ -195,7 +228,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
                     Saya menyetujui syarat &amp; ketentuan SPMB
                   </span>
                 </label>
-                    <a href=""></a>
+
                 <button type="submit" className="register-button">
                   Daftar Sekarang
                 </button>

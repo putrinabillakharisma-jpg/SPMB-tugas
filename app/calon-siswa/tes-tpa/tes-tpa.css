@@ -1,0 +1,1054 @@
+
+/* ============================================
+   TES TPA CALON SISWA
+   Design: Figma SPMB SMK Citra Negara
+============================================ */
+
+.tpa-layout {
+  --navy: #171d7c;
+  --blue: #1264d5;
+  --blue-hover: #0754bd;
+  --blue-light: #dceeff;
+  --purple-light: #dcd5f3;
+  --text: #111111;
+  --muted: #647184;
+  --border: #d8d8df;
+
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  padding: 11px;
+  gap: 0;
+  background: #faf9ff;
+  color: var(--text);
+  font-family: "Poppins", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.tpa-layout *,
+.tpa-layout *::before,
+.tpa-layout *::after {
+  box-sizing: border-box;
+}
+
+/* ============================================
+   SIDEBAR
+============================================ */
+
+/* Sesuaikan selector ini dengan elemen root
+   yang digunakan oleh CalonSidebar kamu. */
+
+.tpa-layout > aside,
+.tpa-layout > .calon-sidebar {
+  width: 252px;
+  min-width: 252px;
+  min-height: calc(100vh - 22px);
+  flex-shrink: 0;
+  background: var(--navy);
+}
+
+/* ============================================
+   MAIN CONTENT
+============================================ */
+
+.tpa-main {
+  min-width: 0;
+  min-height: calc(100vh - 22px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+/* ============================================
+   HEADER
+============================================ */
+
+.tpa-header {
+  height: 63px;
+  min-height: 63px;
+  padding: 0 34px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: none;
+}
+
+.tpa-header > div:first-child {
+  display: none;
+}
+
+.tpa-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tpa-avatar {
+  width: 31px;
+  height: 31px;
+  border: 1px solid #111111;
+  border-radius: 50%;
+  background: #dedede;
+  color: #333333;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+}
+
+.tpa-profile strong {
+  color: #111111;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tpa-profile small {
+  display: none;
+}
+
+/* ============================================
+   CONTENT AREA
+============================================ */
+
+.tpa-content {
+  width: 100%;
+  max-width: none;
+  min-height: calc(100vh - 85px);
+  flex: 1;
+  margin: 0;
+  padding: 21px 23px 30px;
+  background: #dcecff;
+  border: 1px solid #77bfff;
+  border-radius: 16px;
+}
+
+/* ============================================
+   PAGE TITLE
+============================================ */
+
+.tpa-page-heading {
+  min-height: 35px;
+  margin: 0 0 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tpa-breadcrumb {
+  display: none;
+}
+
+.tpa-page-heading h2 {
+  margin: 0;
+  color: #000000;
+  font-size: 23px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.tpa-page-heading p {
+  display: none;
+}
+
+.tpa-heading-icon {
+  display: none;
+}
+
+/* ============================================
+   ALERT
+============================================ */
+
+.tpa-alert {
+  padding: 13px 16px;
+  margin: 0 0 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.tpa-alert-error {
+  background: #fff0f0;
+  border: 1px solid #ffd1d1;
+  color: #b83232;
+}
+
+.tpa-alert-success {
+  background: #eafaf2;
+  border: 1px solid #c9f0db;
+  color: #147d4c;
+}
+
+/* ============================================
+   STATUS
+============================================ */
+
+.tpa-status {
+  width: fit-content;
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.tpa-status-locked {
+  color: #c13d3d;
+  background: #fff0f0;
+}
+
+.tpa-status-ready {
+  color: #1764ca;
+  background: #eaf2ff;
+}
+
+.tpa-status-done {
+  color: #148354;
+  background: #e8f9f0;
+}
+
+/* ============================================
+   LOCKED / EMPTY / RESULT
+============================================ */
+
+.tpa-lock-card,
+.tpa-empty-card,
+.tpa-result-card {
+  width: 100%;
+  max-width: 760px;
+  margin: 45px auto;
+  padding: 40px;
+  border: none;
+  border-radius: 22px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: none;
+}
+
+.tpa-lock-icon,
+.tpa-empty-icon,
+.tpa-result-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 18px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+}
+
+.tpa-lock-icon {
+  background: #fff1f1;
+}
+
+.tpa-empty-icon {
+  background: #edf3ff;
+}
+
+.tpa-result-icon {
+  background: #e7f9ef;
+  color: #16a36a;
+}
+
+.tpa-lock-card h3,
+.tpa-empty-card h3,
+.tpa-result-card h3 {
+  margin: 17px 0 10px;
+  color: #171d7c;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.tpa-lock-card > p,
+.tpa-empty-card > p,
+.tpa-result-card > p {
+  max-width: 520px;
+  margin: 0 auto;
+  color: #68758b;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.tpa-lock-info {
+  max-width: 500px;
+  margin: 25px auto;
+  padding: 17px;
+  border-radius: 12px;
+  background: #f7f9fd;
+  text-align: left;
+}
+
+.tpa-lock-info > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 7px 0;
+  color: #64718a;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.tpa-info-icon {
+  color: var(--blue);
+  font-weight: 800;
+}
+
+/* ============================================
+   BUTTON
+============================================ */
+
+.tpa-primary-button,
+.tpa-secondary-button {
+  min-height: 51px;
+  padding: 0 24px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.tpa-primary-button {
+  color: #ffffff;
+  background: var(--blue);
+  border: 1px solid var(--blue);
+}
+
+.tpa-primary-button:hover {
+  background: var(--blue-hover);
+  border-color: var(--blue-hover);
+}
+
+.tpa-secondary-button {
+  color: #0864e8;
+  background: #ffffff;
+  border: 1px solid #7b83d7;
+}
+
+.tpa-secondary-button:hover {
+  background: #f4f5ff;
+}
+
+.tpa-primary-button:disabled,
+.tpa-secondary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tpa-lock-card .tpa-primary-button {
+  margin-top: 3px;
+}
+
+/* ============================================
+   INTRO CARD
+============================================ */
+
+.tpa-intro-card,
+.tpa-instruction-card {
+  padding: 28px;
+  border: none;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.tpa-intro-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tpa-intro-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  color: var(--blue);
+  background: #edf3ff;
+  font-size: 23px;
+}
+
+.tpa-intro-card h3 {
+  margin: 20px 0 8px;
+  color: var(--navy);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.tpa-intro-card > p {
+  margin: 0;
+  color: #68758b;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.tpa-stats {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e8e8ef;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.tpa-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tpa-stat-icon {
+  width: 39px;
+  height: 39px;
+  border-radius: 11px;
+  background: #edf3ff;
+  color: var(--blue);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+}
+
+.tpa-stat-item strong,
+.tpa-stat-item small {
+  display: block;
+}
+
+.tpa-stat-item strong {
+  color: var(--navy);
+  font-size: 13px;
+}
+
+.tpa-stat-item small {
+  margin-top: 4px;
+  color: #77839a;
+  font-size: 11px;
+}
+
+/* ============================================
+   INSTRUCTION
+============================================ */
+
+.tpa-instruction-card {
+  margin-top: 18px;
+}
+
+.tpa-instruction-card h3 {
+  margin: 0 0 16px;
+  color: var(--navy);
+  font-size: 16px;
+}
+
+.tpa-instruction-card ul {
+  padding-left: 21px;
+  margin: 0;
+}
+
+.tpa-instruction-card li {
+  padding-left: 4px;
+  margin: 11px 0;
+  color: #68758b;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.tpa-instruction-card li::marker {
+  color: var(--blue);
+}
+
+.tpa-start-button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* ============================================
+   EXAM CONTAINER
+   WHITE CARD LIKE FIGMA
+============================================ */
+
+.tpa-exam {
+  min-height: 576px;
+  padding: 29px 30px 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: none;
+}
+
+/* ============================================
+   EXAM HEADER
+============================================ */
+
+.tpa-exam-top {
+  padding: 0 8px 22px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.tpa-exam-top h3 {
+  margin: 0;
+  color: #596678;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tpa-exam-top .tpa-status {
+  display: none;
+}
+
+.tpa-timer {
+  min-width: 125px;
+  padding: 9px 13px;
+  border-radius: 9px;
+  background: #edf4ff;
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.tpa-timer > span {
+  font-size: 21px;
+}
+
+.tpa-timer small,
+.tpa-timer strong {
+  display: block;
+}
+
+.tpa-timer small {
+  margin-bottom: 3px;
+  color: #74839e;
+  font-size: 10px;
+}
+
+.tpa-timer strong {
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.tpa-timer-warning {
+  background: #fff0ed;
+  color: #d74736;
+}
+
+/* ============================================
+   PROGRESS BAR
+============================================ */
+
+.tpa-progress-section {
+  padding: 0 0 30px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.tpa-progress-label {
+  margin: 0 8px 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #596678;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tpa-progress-label strong {
+  color: #596678;
+}
+
+.tpa-progress-track {
+  width: 100%;
+  height: 25px;
+  border-radius: 30px;
+  overflow: hidden;
+  background: var(--purple-light);
+}
+
+.tpa-progress-fill {
+  height: 100%;
+  border-radius: 30px;
+  background: var(--blue);
+  transition: width 0.3s ease;
+}
+
+/* ============================================
+   QUESTION CARD
+============================================ */
+
+.tpa-question-card {
+  min-height: 240px;
+  margin: 0 -30px;
+  padding: 16px 51px 35px;
+  border: none;
+  border-top: 1px solid #d9d9df;
+  border-bottom: 1px solid #d9d9df;
+  border-radius: 0;
+  background: #ffffff;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.13);
+}
+
+.tpa-question-heading {
+  padding: 0;
+  margin-bottom: 13px;
+  border: none;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tpa-question-number {
+  display: none;
+}
+
+.tpa-question-card h4 {
+  margin: 0 0 10px;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* ============================================
+   ANSWER OPTIONS
+============================================ */
+
+.tpa-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tpa-option {
+  min-height: 25px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.tpa-option:hover {
+  background: transparent;
+}
+
+.tpa-option.selected {
+  border: none;
+  background: transparent;
+}
+
+.tpa-option input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  margin: 0;
+  border: 1px solid #8490cf;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  position: relative;
+}
+
+.tpa-option input:checked {
+  border: 2px solid var(--blue);
+}
+
+.tpa-option input:checked::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.tpa-option-letter {
+  display: none;
+}
+
+.tpa-option-text {
+  color: #111111;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* ============================================
+   QUESTION NAVIGATION
+============================================ */
+
+.tpa-question-navigation {
+  min-height: 150px;
+  margin: 0;
+  padding: 0 18px;
+  border: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.tpa-question-navigation .tpa-secondary-button,
+.tpa-question-navigation .tpa-primary-button {
+  min-width: 209px;
+  min-height: 51px;
+  margin-top: 69px;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tpa-question-navigation .tpa-secondary-button {
+  color: #0065ff;
+  border: 1px solid #8a8fd9;
+  background: #ffffff;
+}
+
+.tpa-question-navigation .tpa-primary-button {
+  color: #ffffff;
+  background: var(--blue);
+  border: 1px solid var(--blue);
+}
+
+/* ============================================
+   NUMBER NAVIGATION
+============================================ */
+
+.tpa-number-card {
+  margin-top: 15px;
+  padding: 20px;
+  border: 1px solid #e4e7ef;
+  border-radius: 13px;
+  background: #ffffff;
+}
+
+.tpa-number-card h4 {
+  margin: 0 0 15px;
+  color: var(--navy);
+  font-size: 14px;
+}
+
+.tpa-number-grid {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(30px, 1fr));
+  gap: 8px;
+}
+
+.tpa-number-grid button {
+  min-height: 35px;
+  border: 1px solid #e0e7f1;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #77849a;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tpa-number-grid button.active {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #ffffff;
+}
+
+.tpa-number-grid button.answered:not(.active) {
+  border-color: #b9ead2;
+  background: #e9f9f1;
+  color: #138351;
+}
+
+.tpa-number-legend {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tpa-number-legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #77839a;
+  font-size: 10px;
+}
+
+.tpa-number-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.legend-active {
+  background: var(--blue);
+}
+
+.legend-answered {
+  background: #b9ead2;
+}
+
+.legend-empty {
+  background: #e0e7f1;
+}
+
+/* ============================================
+   RESULT
+============================================ */
+
+.tpa-score-box {
+  max-width: 230px;
+  margin: 25px auto;
+  padding: 22px;
+  border: 1px solid #dce8ff;
+  border-radius: 14px;
+  background: #f2f6ff;
+}
+
+.tpa-score-box span,
+.tpa-score-box strong,
+.tpa-score-box small {
+  display: block;
+}
+
+.tpa-score-box span {
+  color: #687a9b;
+  font-size: 12px;
+}
+
+.tpa-score-box strong {
+  margin: 9px 0;
+  color: var(--blue);
+  font-size: 42px;
+}
+
+.tpa-score-box small {
+  color: #8b98ad;
+  font-size: 10px;
+}
+
+.tpa-result-detail {
+  max-width: 420px;
+  margin: 0 auto 25px;
+  padding: 15px 0;
+  border-top: 1px solid #e5e8ef;
+  border-bottom: 1px solid #e5e8ef;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  text-align: left;
+}
+
+.tpa-result-detail span,
+.tpa-result-detail strong {
+  display: block;
+}
+
+.tpa-result-detail span {
+  margin-bottom: 6px;
+  color: #77839a;
+  font-size: 10px;
+}
+
+.tpa-result-detail strong {
+  color: var(--navy);
+  font-size: 12px;
+}
+
+/* ============================================
+   LOADING
+============================================ */
+
+.tpa-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: #f5f7fc;
+  color: #68758b;
+  font-size: 13px;
+}
+
+.tpa-spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #dce7fb;
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: tpa-spin 0.8s linear infinite;
+}
+
+@keyframes tpa-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+
+@media (max-width: 900px) {
+  .tpa-layout {
+    padding: 7px;
+  }
+
+  .tpa-content {
+    padding: 20px 17px;
+  }
+
+  .tpa-exam {
+    padding: 23px 22px;
+  }
+
+  .tpa-question-card {
+    margin: 0 -22px;
+    padding: 18px 30px 30px;
+  }
+
+  .tpa-question-navigation {
+    padding: 0;
+  }
+
+  .tpa-question-navigation .tpa-secondary-button,
+  .tpa-question-navigation .tpa-primary-button {
+    min-width: 170px;
+  }
+
+  .tpa-number-grid {
+    grid-template-columns: repeat(8, minmax(30px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .tpa-layout {
+    padding: 0;
+  }
+
+  .tpa-main {
+    min-height: 100vh;
+  }
+
+  .tpa-header {
+    height: 60px;
+    min-height: 60px;
+    padding: 0 15px;
+  }
+
+  .tpa-content {
+    min-height: calc(100vh - 60px);
+    padding: 18px 13px;
+    border-radius: 12px;
+  }
+
+  .tpa-page-heading h2 {
+    font-size: 20px;
+  }
+
+  .tpa-lock-card,
+  .tpa-empty-card,
+  .tpa-result-card {
+    padding: 28px 17px;
+  }
+
+  .tpa-intro-card,
+  .tpa-instruction-card {
+    padding: 19px;
+  }
+
+  .tpa-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .tpa-exam {
+    min-height: auto;
+    padding: 20px 15px;
+    border-radius: 15px;
+  }
+
+  .tpa-exam-top {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 20px;
+  }
+
+  .tpa-timer {
+    width: 100%;
+  }
+
+  .tpa-progress-section {
+    padding-bottom: 23px;
+  }
+
+  .tpa-progress-label {
+    margin: 0 0 12px;
+    font-size: 12px;
+  }
+
+  .tpa-progress-track {
+    height: 15px;
+  }
+
+  .tpa-question-card {
+    min-height: 250px;
+    margin: 0 -15px;
+    padding: 19px 20px 25px;
+  }
+
+  .tpa-question-card h4 {
+    font-size: 13px;
+  }
+
+  .tpa-option-text {
+    font-size: 12px;
+  }
+
+  .tpa-question-navigation {
+    min-height: auto;
+    padding: 20px 0 0;
+    flex-direction: column;
+  }
+
+  .tpa-question-navigation .tpa-secondary-button,
+  .tpa-question-navigation .tpa-primary-button {
+    width: 100%;
+    min-height: 47px;
+    margin-top: 0;
+  }
+
+  .tpa-number-grid {
+    grid-template-columns: repeat(5, minmax(30px, 1fr));
+  }
+
+  .tpa-number-legend {
+    gap: 10px;
+  }
+
+  .tpa-result-detail {
+    flex-direction: column;
+  }
+}

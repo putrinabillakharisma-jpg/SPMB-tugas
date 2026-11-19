@@ -75,7 +75,7 @@ export default function Home() {
           <div className="hero-circle"></div>
 
           <img
-            src="/images/siswa.png"
+            src="/asset/cngedung.jpg"
             alt="Siswa SMK Citra Negara"
           />
 
@@ -214,7 +214,7 @@ export default function Home() {
         <div className="school-image">
 
           <img
-            src="/asset/gedung.png"
+            src="/asset/gedungcn.png"
             alt="Gedung SMK Citra Negara"
           />
 
@@ -227,11 +227,9 @@ export default function Home() {
           </div>
 
           <div className="image-bubble">
-            <strong>Bersama</strong>
+            <strong>SMK CITRA NEGARA</strong>
             <br />
-            membangun
-            <br />
-            masa depan!
+            MANTAP!
           </div>
 
         </div>

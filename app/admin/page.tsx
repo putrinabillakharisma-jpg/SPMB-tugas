@@ -50,6 +50,17 @@ const menu: MenuItem[] = [
     ],
   },
   {
+  key: "pembayaran",
+  label: "Pembayaran",
+  icon: "doc",
+  children: [
+    {
+      label: "Verifikasi Pembayaran",
+      href: "/admin/pembayaran",
+    },
+  ],
+},
+  {
     key: "tpa",
     label: "Tes TPA",
     icon: "tpa",
@@ -501,7 +512,7 @@ export default function AdminPage() {
       <aside className="sidebar">
         <div className="sidebar__brand">
           <Image
-            src="/logo-smk.png"
+            src="/asset/logo cn.png"
             alt="Logo SMK Citra Negara"
             width={60}
             height={60}
@@ -625,7 +636,7 @@ export default function AdminPage() {
           <section className="banner">
             <div className="banner__img">
               <Image
-                src="/gedung-smk.png"
+                src="/asset/jurusan.png"
                 alt="Gedung SMK Citra Negara"
                 fill
                 sizes="300px"

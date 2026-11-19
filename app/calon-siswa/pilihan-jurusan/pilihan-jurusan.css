@@ -1,0 +1,500 @@
+
+/* =====================================================
+   PILIHAN JURUSAN
+   Sidebar menggunakan calon.css
+===================================================== */
+
+.jurusan-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fbfaff;
+}
+
+/* TOPBAR */
+
+.jurusan-topbar {
+  height: 46px;
+  flex-shrink: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 40px;
+}
+
+.jurusan-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.jurusan-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #374151;
+  border: 1.5px solid #374151;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.jurusan-chevron {
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+/* KONTEN */
+
+.jurusan-content {
+  flex: 1;
+  margin-left: 2px;
+  padding: 25px 28px 40px;
+  background: #eef5ff;
+  border-radius: 14px 0 0 0;
+  min-height: calc(100vh - 46px);
+}
+
+.jurusan-content > h1 {
+  margin: 0 0 22px;
+  font-size: 25px;
+  font-weight: 750;
+  color: #14197a;
+}
+
+/* STEPPER */
+
+.jurusan-stepper {
+  background: #fff;
+  border-radius: 16px;
+  padding: 17px 28px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  color: #14197a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border: 1px solid #c7c9f0;
+  color: #14197a;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.step-item.active .step-number {
+  background: #1565d8;
+  border-color: #1565d8;
+  color: #fff;
+}
+
+.step-line {
+  flex: 1;
+  height: 1px;
+  min-width: 20px;
+  background: #a9aee6;
+}
+
+/* BAGIAN PILIHAN */
+
+.jurusan-section {
+  padding: 5px 4px;
+}
+
+.jurusan-section h2,
+.jurusan-konfirmasi h2 {
+  margin: 0;
+  color: #14197a;
+  font-size: 22px;
+  font-weight: 750;
+}
+
+.jurusan-subtitle {
+  margin: 8px 0 20px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.jurusan-keterangan {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 18px;
+  color: #29345b;
+  font-size: 13px;
+}
+
+.pilihan-badge {
+  width: 23px;
+  height: 23px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+}
+
+.pilihan-badge.utama {
+  background: #1565d8;
+}
+
+.pilihan-badge.cadangan {
+  background: #8c5bd8;
+  margin-left: 12px;
+}
+
+/* KARTU JURUSAN */
+
+.jurusan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 24px;
+}
+
+.jurusan-card {
+  min-height: 165px;
+  padding: 18px 14px;
+  border: 1px solid #c7c9e8;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 5px #14197a0d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #14197a;
+  font-family: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.jurusan-card:hover {
+  transform: translateY(-3px);
+  border-color: #1565d8;
+  box-shadow: 0 5px 14px #1748a51c;
+}
+
+.jurusan-card.selected-utama {
+  border: 2px solid #1565d8;
+  background: #edf5ff;
+}
+
+.jurusan-card.selected-cadangan {
+  border: 2px solid #8c5bd8;
+  background: #f7f1ff;
+}
+
+.jurusan-card-icon {
+  font-size: 35px;
+}
+
+.jurusan-card-nama {
+  font-size: 17px;
+  font-weight: 750;
+}
+
+.jurusan-card-deskripsi {
+  max-width: 230px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #59647b;
+}
+
+.jurusan-card-label {
+  padding: 5px 11px;
+  border-radius: 20px;
+  background: #1565d8;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.cadangan-label {
+  background: #8c5bd8;
+}
+
+/* TOMBOL */
+
+.jurusan-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+
+.jurusan-next,
+.jurusan-back {
+  min-width: 180px;
+  min-height: 48px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 7px;
+  background: #1565d8;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.jurusan-next:hover {
+  background: #104fae;
+}
+
+.jurusan-next:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.jurusan-next span {
+  font-size: 23px;
+  font-weight: 400;
+}
+
+.jurusan-back {
+  background: #fff;
+  color: #14197a;
+  border: 1px solid #14197a;
+}
+
+.konfirmasi-action {
+  justify-content: space-between;
+  gap: 15px;
+}
+
+/* KONFIRMASI */
+
+.jurusan-konfirmasi {
+  padding: 10px 4px;
+}
+
+.jurusan-konfirmasi > p {
+  color: #6b7280;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.konfirmasi-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  margin-bottom: 15px;
+  background: #fff;
+  border: 1px solid #c7c9e8;
+  border-radius: 10px;
+}
+
+.konfirmasi-nomor {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.konfirmasi-nomor.utama {
+  background: #1565d8;
+}
+
+.konfirmasi-nomor.cadangan {
+  background: #8c5bd8;
+}
+
+.konfirmasi-card small,
+.selesai-ringkasan small {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.konfirmasi-card h3 {
+  margin: 0;
+  color: #14197a;
+  font-size: 16px;
+}
+
+/* BERHASIL */
+
+.jurusan-selesai {
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+  background: #fff;
+  border-radius: 15px;
+  padding: 35px;
+}
+
+.selesai-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #168348;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.jurusan-selesai h2 {
+  color: #14197a;
+  font-size: 22px;
+}
+
+.jurusan-selesai > p {
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.selesai-ringkasan {
+  text-align: left;
+  background: #f4f7ff;
+  padding: 18px;
+  border-radius: 10px;
+  margin: 22px 0;
+}
+
+.selesai-ringkasan > div + div {
+  margin-top: 16px;
+}
+
+.selesai-ringkasan strong {
+  display: block;
+  color: #14197a;
+  font-size: 14px;
+}
+
+.selesai-button {
+  width: 100%;
+}
+
+/* PESAN ERROR */
+
+.jurusan-error {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 15px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+  .jurusan-grid {
+    gap: 15px;
+  }
+
+  .jurusan-card {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 760px) {
+  .jurusan-main {
+    width: 100%;
+  }
+
+  .jurusan-topbar {
+    padding: 0 16px;
+  }
+
+  .jurusan-content {
+    border-radius: 0;
+    padding: 22px 14px 30px;
+  }
+
+  .jurusan-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .jurusan-stepper {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .step-line {
+    min-width: 25px;
+  }
+
+  .step-item {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .jurusan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .konfirmasi-action {
+    flex-direction: column;
+  }
+
+  .jurusan-next,
+  .jurusan-back {
+    width: 100%;
+  }
+}
+
+
+.jurusan-card-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.jurusan-card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.jurusan-card:hover .jurusan-card-icon img {
+  transform: scale(1.08);
+}

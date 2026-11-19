@@ -3,33 +3,45 @@ import pool from "@/lib/db";
 import { jwtVerify } from "jose";
 
 async function isAdmin(request) {
-  const cookieHeader = request.headers.get("cookie") || "";
-
-  const sessionCookie = cookieHeader
-    .split(";")
-    .map((item) => item.trim())
-    .find((item) => item.startsWith("spmb_session="));
-
-  const token = sessionCookie?.slice("spmb_session=".length);
-  const secret = process.env.SESSION_SECRET;
-
-  if (!token || !secret || secret.length < 32) {
-    return false;
-  }
-
   try {
+    const cookieHeader = request.headers.get("cookie") || "";
+
+    const sessionCookie = cookieHeader
+      .split(";")
+      .map((item) => item.trim())
+      .find((item) => item.startsWith("spmb_session="));
+
+    if (!sessionCookie) return false;
+
+    const token = sessionCookie.substring(
+      "spmb_session=".length
+    );
+
+    const secret = process.env.SESSION_SECRET;
+
+    if (!secret || secret.length < 32) {
+      return false;
+    }
+
     const { payload } = await jwtVerify(
-      decodeURIComponent(token),
-      new TextEncoder().encode(secret),
-      { algorithms: ["HS256"] }
+      token,
+      new TextEncoder().encode(secret)
     );
 
     return payload.role === "admin";
-  } catch {
+  } catch (error) {
+    console.error("ADMIN AUTH:", error);
     return false;
   }
 }
 
+const STATUS_VALID = [
+  "Belum Diverifikasi",
+  "Terverifikasi",
+  "Perlu Revisi",
+];
+
+// GET DATA BERKAS
 export async function GET(request) {
   try {
     if (!(await isAdmin(request))) {
@@ -40,39 +52,12 @@ export async function GET(request) {
     }
 
     const { searchParams } = new URL(request.url);
-    const status = searchParams.get("status") || "";
-    const cari = searchParams.get("cari") || "";
 
-    const allowedStatuses = [
-      "Belum Diverifikasi",
-      "Terverifikasi",
-      "Perlu Revisi",
-    ];
+    const cari = searchParams.get("cari")?.trim() || "";
+    const status = searchParams.get("status")?.trim() || "";
 
-    const conditions = [];
-    const params = [];
-
-    if (status && allowedStatuses.includes(status)) {
-      conditions.push("b.status_verifikasi = ?");
-      params.push(status);
-    }
-
-    if (cari.trim()) {
-      conditions.push(
-        "(cs.nama LIKE ? OR cs.nisn LIKE ? OR b.jenis_berkas LIKE ?)"
-      );
-
-      const keyword = `%${cari.trim()}%`;
-      params.push(keyword, keyword, keyword);
-    }
-
-    const where =
-      conditions.length > 0
-        ? `WHERE ${conditions.join(" AND ")}`
-        : "";
-
-    const [rows] = await pool.query(
-      `SELECT
+    let sql = `
+      SELECT
         b.id,
         b.user_id,
         cs.nama,
@@ -85,23 +70,69 @@ export async function GET(request) {
         b.tanggal_upload,
         b.tanggal_verifikasi
       FROM berkas_calon_siswa b
-      LEFT JOIN calon_siswa cs ON cs.id = b.user_id
-      ${where}
-      ORDER BY b.tanggal_upload DESC`,
-      params
-    );
+      LEFT JOIN calon_siswa cs
+        ON cs.id = b.user_id
+      WHERE 1 = 1
+    `;
 
-    return Response.json({ data: rows });
+    const values = [];
+
+    if (status) {
+      if (!STATUS_VALID.includes(status)) {
+        return Response.json(
+          { message: "Filter status tidak valid." },
+          { status: 400 }
+        );
+      }
+
+      sql += " AND b.status_verifikasi = ?";
+      values.push(status);
+    }
+
+    if (cari) {
+      sql += `
+        AND (
+          cs.nama LIKE ?
+          OR cs.nisn LIKE ?
+          OR b.jenis_berkas LIKE ?
+          OR b.nama_file LIKE ?
+        )
+      `;
+
+      const keyword = `%${cari}%`;
+
+      values.push(
+        keyword,
+        keyword,
+        keyword,
+        keyword
+      );
+    }
+
+    sql += `
+      ORDER BY b.tanggal_upload DESC, b.id DESC
+    `;
+
+    const [rows] = await pool.execute(sql, values);
+
+    return Response.json({
+      message: "Data berkas berhasil diambil.",
+      data: rows,
+    });
   } catch (error) {
-    console.error("GET verifikasi berkas:", error);
+    console.error("GET VERIFIKASI BERKAS:", error);
 
     return Response.json(
-      { message: "Gagal mengambil data berkas." },
+      {
+        message:
+          "Terjadi kesalahan saat mengambil data berkas.",
+      },
       { status: 500 }
     );
   }
 }
 
+// UPDATE STATUS VERIFIKASI
 export async function PATCH(request) {
   try {
     if (!(await isAdmin(request))) {
@@ -115,39 +146,56 @@ export async function PATCH(request) {
 
     const id = Number(body.id);
     const status = body.status_verifikasi;
-    const catatan = String(body.catatan_admin || "").trim();
+    const catatan = String(
+      body.catatan_admin || ""
+    ).trim();
 
-    const allowedStatuses = [
-      "Belum Diverifikasi",
-      "Terverifikasi",
-      "Perlu Revisi",
-    ];
+    if (!Number.isInteger(id) || id <= 0) {
+      return Response.json(
+        { message: "ID berkas tidak valid." },
+        { status: 400 }
+      );
+    }
+
+    if (!STATUS_VALID.includes(status)) {
+      return Response.json(
+        { message: "Status verifikasi tidak valid." },
+        { status: 400 }
+      );
+    }
 
     if (
-      !Number.isInteger(id) ||
-      id <= 0 ||
-      !allowedStatuses.includes(status)
+      status === "Perlu Revisi" &&
+      !catatan
     ) {
       return Response.json(
-        { message: "ID atau status verifikasi tidak valid." },
+        {
+          message:
+            "Catatan admin wajib diisi jika berkas perlu revisi.",
+        },
         { status: 400 }
       );
     }
 
-    if (status === "Perlu Revisi" && !catatan) {
-      return Response.json(
-        { message: "Catatan wajib diisi jika berkas perlu revisi." },
-        { status: 400 }
-      );
-    }
-
-    const [result] = await pool.query(
-      `UPDATE berkas_calon_siswa
-       SET status_verifikasi = ?,
-           catatan_admin = ?,
-           tanggal_verifikasi = NOW()
-       WHERE id = ?`,
-      [status, catatan || null, id]
+    const [result] = await pool.execute(
+      `
+        UPDATE berkas_calon_siswa
+        SET
+          status_verifikasi = ?,
+          catatan_admin = ?,
+          tanggal_verifikasi = CASE
+            WHEN ? = 'Terverifikasi'
+              THEN NOW()
+            ELSE NULL
+          END
+        WHERE id = ?
+      `,
+      [
+        status,
+        catatan || null,
+        status,
+        id,
+      ]
     );
 
     if (result.affectedRows === 0) {
@@ -158,13 +206,17 @@ export async function PATCH(request) {
     }
 
     return Response.json({
-      message: "Status verifikasi berhasil diperbarui.",
+      message:
+        "Status verifikasi berkas berhasil diperbarui.",
     });
   } catch (error) {
-    console.error("PATCH verifikasi berkas:", error);
+    console.error("PATCH VERIFIKASI BERKAS:", error);
 
     return Response.json(
-      { message: "Gagal memperbarui status berkas." },
+      {
+        message:
+          "Terjadi kesalahan saat menyimpan verifikasi.",
+      },
       { status: 500 }
     );
   }

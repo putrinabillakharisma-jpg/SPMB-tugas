@@ -1,18 +1,14 @@
 
-import { NextResponse } from "next/server";
-
 export async function POST() {
-  const response = NextResponse.json({
+  const response = Response.json({
+    success: true,
     message: "Logout berhasil.",
   });
 
-  response.cookies.set("spmb_session", "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    expires: new Date(0),
-  });
+  response.headers.append(
+    "Set-Cookie",
+    "spmb_session=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0"
+  );
 
   return response;
 }

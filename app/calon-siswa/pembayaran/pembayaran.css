@@ -1,0 +1,1096 @@
+
+/* =========================================
+   PEMBAYARAN CALON SISWA
+   SPMB SMK CITRA NEGARA
+========================================= */
+
+.pembayaran-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  background: #dcecff;
+  margin-left: 0;
+  color: #171717;
+}
+
+/* =========================================
+   TOPBAR
+========================================= */
+
+.pembayaran-topbar {
+  height: 58px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 30px;
+}
+
+.pembayaran-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #222;
+}
+
+.user-avatar {
+  width: 27px;
+  height: 27px;
+  border: 1px solid #222;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eeeeee;
+  font-size: 19px;
+}
+
+.user-chevron {
+  margin-left: 8px;
+  font-size: 18px;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.pembayaran-content {
+  padding: 18px 11px 35px;
+}
+
+.pembayaran-content > h1 {
+  color: #17247f;
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 8px 9px;
+}
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.pembayaran-container {
+  background: #ffffff;
+  border: 2px solid #159bff;
+  border-radius: 11px;
+  padding: 18px 15px;
+  min-height: 495px;
+}
+
+/* =========================================
+   TOP GRID
+========================================= */
+
+.pembayaran-top-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+/* =========================================
+   RINCIAN PEMBAYARAN
+========================================= */
+
+.rincian-card {
+  background: #ffffff;
+  border: 1px solid #9670cb;
+  border-radius: 9px;
+  padding: 10px 18px 18px;
+  min-height: 225px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.rincian-card h2,
+.metode-card h2 {
+  color: #17247f;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 17px;
+}
+
+.rincian-card h2 {
+  color: #111111;
+}
+
+.rincian-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rincian-list > div {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.rincian-list strong {
+  font-weight: 650;
+}
+
+.rincian-list span {
+  overflow-wrap: anywhere;
+}
+
+.nominal {
+  font-weight: 600;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status-pembayaran {
+  display: inline-flex;
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.status-lunas {
+  color: #079447;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.status-menunggu {
+  color: #b77900;
+  background: #fff4d5;
+  border: 1px solid #f6d88a;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+.status-belum {
+  color: #d97706;
+  background: #fff1d6;
+  border: 1px solid #f5d49b;
+}
+
+.status-ditolak {
+  color: #b42318;
+  background: #fff0ef;
+  border: 1px solid #ffb4ae;
+}
+
+/* =========================================
+   METODE PEMBAYARAN
+========================================= */
+
+.metode-card {
+  background: #b8e0ff;
+  border: 1px solid #a88bd1;
+  border-radius: 9px;
+  padding: 9px 14px 5px;
+  min-height: 225px;
+}
+
+.metode-card h2 {
+  margin-bottom: 8px;
+}
+
+.metode-item {
+  width: 100%;
+  min-height: 66px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  margin-bottom: 8px;
+  background: #f8f8ff;
+  border: 1px solid #d3e0f0;
+  border-radius: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.metode-item:hover:not(:disabled) {
+  border-color: #1670dd;
+  transform: translateY(-2px);
+}
+
+.metode-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.metode-active {
+  border: 1.5px solid #1267e8;
+  box-shadow: 0 2px 4px rgba(18, 103, 232, 0.2);
+}
+
+.metode-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.qris-icon {
+  color: #1267e8;
+}
+
+.va-icon {
+  color: #1764c7;
+}
+
+.transfer-icon {
+  color: #1764c7;
+}
+
+.metode-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.metode-info strong {
+  font-size: 16px;
+  color: #111111;
+}
+
+.metode-info span {
+  font-size: 12px;
+  color: #333333;
+}
+
+.metode-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1267e8;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.metode-coming-soon {
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #e9edf4;
+  color: #758198;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =========================================
+   DETAIL TRANSAKSI
+========================================= */
+
+.detail-transaksi {
+  margin-top: 25px;
+  padding: 20px;
+  border: 1px solid #a9d5ff;
+  border-radius: 10px;
+  background: #f4f9ff;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.detail-header h2 {
+  color: #17247f;
+  font-size: 17px;
+  margin: 0 0 5px;
+}
+
+.detail-header p {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+.detail-reference {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 13px 0;
+  border-bottom: 1px solid #dce5f0;
+}
+
+.detail-reference span {
+  color: #666;
+  font-size: 12px;
+}
+
+.detail-reference strong {
+  color: #17247f;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  overflow-wrap: anywhere;
+}
+
+.detail-reference small {
+  color: #555;
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  gap: 12px;
+}
+
+.qr-section p {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.qr-section img {
+  width: 210px;
+  height: 210px;
+  object-fit: contain;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.link-gateway {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 16px;
+  color: #ffffff;
+  background: #1267d5;
+  text-decoration: none;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.masa-berlaku {
+  color: #777;
+  font-size: 12px;
+  margin-top: 15px;
+}
+
+.cek-status-button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 7px;
+  background: #17247f;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cek-status-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   PESAN
+========================================= */
+
+.pembayaran-success,
+.pembayaran-error {
+  margin-top: 15px;
+  padding: 12px 15px;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.pembayaran-success {
+  color: #087a40;
+  background: #e2f9eb;
+  border: 1px solid #9be7b7;
+}
+
+.pembayaran-error {
+  color: #b42318;
+  background: #fff0ef;
+  border: 1px solid #ffb4ae;
+}
+
+/* =========================================
+   UPLOAD BUKTI
+========================================= */
+
+.upload-bukti-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 5px;
+  margin-top: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.upload-bukti-card h2 {
+  color: #17247f;
+  font-size: 16px;
+  margin: 0 0 7px;
+}
+
+.upload-bukti-card p {
+  max-width: 390px;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.upload-area input {
+  display: none;
+}
+
+.upload-label {
+  min-width: 220px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  border: 1px dashed #1976d2;
+  border-radius: 8px;
+  background: #f3f8ff;
+  cursor: pointer;
+}
+
+.upload-icon {
+  font-size: 25px;
+  color: #1267d5;
+}
+
+.upload-label strong {
+  color: #1267d5;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.upload-label small {
+  color: #777;
+  font-size: 10px;
+  text-align: center;
+}
+
+.upload-button {
+  width: 100%;
+  padding: 9px;
+  color: white;
+  background: #17247f;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.upload-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   INFORMASI REKENING
+========================================= */
+
+.rekening-pembayaran {
+  margin-top: 15px;
+  padding: 15px 17px;
+  background: #f3f8ff;
+  border: 1px solid #c9def8;
+  border-radius: 8px;
+}
+
+.rekening-pembayaran strong {
+  display: block;
+  color: #17247f;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+.rekening-pembayaran p {
+  color: #666;
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* =========================================
+   TOTAL PEMBAYARAN
+========================================= */
+
+.pembayaran-bottom {
+  min-height: 185px;
+  padding: 35px 15px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.total-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.total-info span {
+  font-size: 16px;
+}
+
+.total-info strong {
+  font-size: 26px;
+  font-weight: 750;
+  color: #050505;
+}
+
+.bayar-button {
+  width: 265px;
+  min-height: 66px;
+  border: none;
+  border-radius: 11px;
+  background: #1267d5;
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  transition: 0.25s ease;
+}
+
+.bayar-button:hover:not(:disabled) {
+  background: #0755bb;
+  transform: translateY(-2px);
+}
+
+.bayar-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lunas-message {
+  padding: 17px 25px;
+  color: #078443;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 9px;
+  font-weight: 700;
+}
+
+.menunggu-message {
+  color: #a16d20;
+  background: #fff4d5;
+  border-color: #f6d88a;
+}
+
+/* =========================================
+   TAHAP SELANJUTNYA
+========================================= */
+
+.tahap-selanjutnya {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid #a6cefa;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.tahap-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e4efff;
+  font-size: 23px;
+  flex-shrink: 0;
+}
+
+.tahap-info {
+  flex: 1;
+}
+
+.tahap-info h3 {
+  color: #17247f;
+  font-size: 15px;
+  margin: 0 0 6px;
+}
+
+.tahap-info p {
+  color: #666;
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.tahap-button {
+  padding: 11px 17px;
+  color: #ffffff;
+  background: #1267d5;
+  border-radius: 7px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  border: none;
+}
+
+.tahap-disabled {
+  background: #aab5c5;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   TAGIHAN PPDB
+========================================= */
+
+.tagihan-ppdb {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 19px;
+  margin-top: 14px;
+  background: #ffffff;
+  border: 1px solid #d5ddec;
+  border-radius: 10px;
+}
+
+.tagihan-icon {
+  width: 43px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #edf2fa;
+  border-radius: 9px;
+  color: #7b8798;
+  font-size: 24px;
+}
+
+.tagihan-ppdb h3 {
+  font-size: 14px;
+  color: #17247f;
+  margin: 0 0 6px;
+}
+
+.tagihan-ppdb p {
+  font-size: 12px;
+  color: #777;
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.tagihan-ppdb span {
+  display: inline-block;
+  padding: 4px 9px;
+  background: #f1f3f5;
+  color: #777;
+  font-size: 10px;
+  border-radius: 5px;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.pembayaran-loading {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  color: #17247f;
+  border: 2px solid #159bff;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+  .pembayaran-top-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .rincian-card,
+  .metode-card {
+    min-height: auto;
+  }
+
+  .pembayaran-bottom {
+    min-height: 140px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pembayaran-content {
+    padding: 15px 10px 25px;
+  }
+
+  .pembayaran-container {
+    padding: 12px;
+  }
+
+  .pembayaran-topbar {
+    padding: 0 15px;
+  }
+
+  .rincian-list > div {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .pembayaran-bottom {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 25px 5px 10px;
+  }
+
+  .bayar-button {
+    width: 100%;
+  }
+
+  .upload-bukti-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .upload-area,
+  .upload-label {
+    width: 100%;
+  }
+
+  .tahap-selanjutnya {
+    flex-wrap: wrap;
+  }
+
+  .tahap-info {
+    min-width: 150px;
+  }
+
+  .tahap-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .detail-header {
+    flex-direction: column;
+  }
+}
+
+
+/* =========================================
+   LABEL METODE SIMULASI
+========================================= */
+
+.metode-demo-label {
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #e8efff;
+  color: #2459b5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.metode-terkunci {
+  margin: 8px 2px 4px;
+  color: #58677c;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   KARTU SIMULASI QRIS DAN VA
+========================================= */
+
+.simulasi-card {
+  margin-top: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #cbdcf4;
+  border-radius: 10px;
+}
+
+.simulasi-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.simulasi-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: #e8f1ff;
+  color: #1267d5;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.simulasi-heading h3 {
+  margin: 0 0 5px;
+  color: #17247f;
+  font-size: 15px;
+}
+
+.simulasi-heading p {
+  margin: 0;
+  color: #687386;
+  font-size: 12px;
+}
+
+/* =========================================
+   ILUSTRASI QR SIMULASI
+========================================= */
+
+.qr-demo {
+  width: 230px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #dce5f0;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.qr-demo-pattern {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 8px solid #f0f3f8;
+  border-radius: 5px;
+  background-color: #e7edf6;
+  background-image:
+    linear-gradient(45deg, #7d8ba1 25%, transparent 25%),
+    linear-gradient(-45deg, #7d8ba1 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #7d8ba1 75%),
+    linear-gradient(-45deg, transparent 75%, #7d8ba1 75%);
+  background-size: 22px 22px;
+  background-position:
+    0 0,
+    0 11px,
+    11px -11px,
+    -11px 0;
+}
+
+.qr-demo-center {
+  position: relative;
+  z-index: 2;
+  padding: 9px 12px;
+  color: #ffffff;
+  background: #17247f;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.qr-corner {
+  position: absolute;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  border: 7px solid #263b61;
+  background: #ffffff;
+}
+
+.qr-corner-one {
+  top: 5px;
+  left: 5px;
+}
+
+.qr-corner-two {
+  top: 5px;
+  right: 5px;
+}
+
+.qr-corner-three {
+  bottom: 5px;
+  left: 5px;
+}
+
+.qr-demo > strong {
+  color: #17247f;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.qr-demo > small {
+  color: #a33a35;
+  font-size: 10px;
+  text-align: center;
+}
+
+/* =========================================
+   NOMOR VIRTUAL ACCOUNT DEMO
+========================================= */
+
+.va-demo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #f2f7ff;
+  border: 1px dashed #8eb7ed;
+  border-radius: 9px;
+  text-align: center;
+}
+
+.va-demo > span {
+  color: #687386;
+  font-size: 12px;
+}
+
+.va-demo > strong {
+  color: #17247f;
+  font-size: 21px;
+  letter-spacing: 1px;
+  overflow-wrap: anywhere;
+}
+
+.va-demo > small {
+  color: #a33a35;
+  font-size: 11px;
+}
+
+/* =========================================
+   PERINGATAN SIMULASI
+========================================= */
+
+.simulasi-warning {
+  margin-top: 15px;
+  padding: 12px 14px;
+  color: #8a5810;
+  background: #fff8e6;
+  border: 1px solid #f3d58b;
+  border-radius: 7px;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   TOMBOL SIMULASI
+========================================= */
+
+.simulasi-action {
+  margin-top: 20px;
+  padding: 18px;
+  background: #edf5ff;
+  border: 1px solid #c6ddfa;
+  border-radius: 9px;
+  text-align: center;
+}
+
+.simulasi-action p {
+  margin: 0 0 13px;
+  color: #34445c;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.simulasi-button {
+  width: 100%;
+  max-width: 340px;
+  min-height: 45px;
+  padding: 11px 18px;
+  color: #ffffff;
+  background: #1267d5;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.simulasi-button:hover:not(:disabled) {
+  background: #0755bb;
+  transform: translateY(-1px);
+}
+
+.simulasi-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.simulasi-action small {
+  display: block;
+  margin-top: 10px;
+  color: #718096;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   RESPONSIVE SIMULASI
+========================================= */
+
+@media (max-width: 600px) {
+  .metode-demo-label {
+    font-size: 9px;
+  }
+
+  .simulasi-card {
+    padding: 14px;
+  }
+
+  .va-demo > strong {
+    font-size: 17px;
+  }
+
+  .simulasi-action {
+    padding: 14px;
+  }
+
+  .simulasi-button {
+    max-width: 100%;
+  }
+}
+

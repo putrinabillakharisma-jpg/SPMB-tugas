@@ -261,7 +261,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 112px;
+  min-height: 130px;
   border-radius: 10px;
   background: var(--banner-bg);
   box-shadow: var(--card-shadow);

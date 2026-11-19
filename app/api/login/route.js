@@ -7,63 +7,39 @@ export async function POST(request) {
   try {
     const body = await request.json();
 
-    const password = body.password;
-
-    // Tentukan metode login:
-    // Calon siswa menggunakan NISN,
-    // admin dan kepsek menggunakan email.
-    const nisn =
-      typeof body.nisn === "string"
-        ? body.nisn.trim()
-        : "";
-
     const email =
       typeof body.email === "string"
         ? body.email.trim().toLowerCase()
         : "";
 
+    const password = body.password;
+
+    // Validasi input
     if (
+      !email ||
       typeof password !== "string" ||
-      !password ||
-      (!nisn && !email)
+      !password
     ) {
       return Response.json(
-        {
-          message:
-            "NISN atau email dan kata sandi wajib diisi.",
-        },
+        { message: "Email dan kata sandi wajib diisi." },
         { status: 400 }
       );
     }
 
-    let user;
+    // Cari akun berdasarkan email
+    let [rows] = await pool.execute(
+      `SELECT id, nama, email, nisn, password, role
+       FROM calon_siswa
+       WHERE email = ?
+       LIMIT 1`,
+      [email]
+    );
 
-    // ==================================
-    // LOGIN CALON SISWA MENGGUNAKAN NISN
-    // ==================================
-    if (nisn) {
-      if (!/^\d{10}$/.test(nisn)) {
-        return Response.json(
-          { message: "NISN harus terdiri dari 10 angka." },
-          { status: 400 }
-        );
-      }
+    let user = rows[0];
 
-      const [rows] = await pool.execute(
-        `SELECT id, nama, nisn, password, role
-         FROM calon_siswa
-         WHERE nisn = ?
-         LIMIT 1`,
-        [nisn]
-      );
-
-      user = rows[0];
-
-    // ==================================
-    // LOGIN ADMIN / KEPSEK MENGGUNAKAN EMAIL
-    // ==================================
-    } else {
-      const [rows] = await pool.execute(
+    // Jika bukan calon siswa, periksa tabel users
+    if (!user) {
+      [rows] = await pool.execute(
         `SELECT id, nama, email, password, role
          FROM users
          WHERE email = ?
@@ -74,21 +50,19 @@ export async function POST(request) {
       user = rows[0];
     }
 
-    // ==================================
-    // VERIFIKASI AKUN DAN PASSWORD
-    // ==================================
+    // Verifikasi akun dan password
     if (
       !user ||
       typeof user.password !== "string" ||
       !(await bcrypt.compare(password, user.password))
     ) {
       return Response.json(
-        { message: "NISN/email atau kata sandi salah." },
+        { message: "Email atau kata sandi salah." },
         { status: 401 }
       );
     }
 
-    // Pastikan role yang diperbolehkan
+    // Role yang diperbolehkan
     const allowedRoles = [
       "calon_siswa",
       "admin",
@@ -102,9 +76,7 @@ export async function POST(request) {
       );
     }
 
-    // ==================================
-    // PERIKSA SESSION SECRET
-    // ==================================
+    // Secret JWT
     const secret = process.env.SESSION_SECRET;
 
     if (!secret || secret.length < 32) {
@@ -114,11 +86,11 @@ export async function POST(request) {
       );
     }
 
-    // ==================================
-    // BUAT TOKEN JWT
-    // ==================================
+    // Buat JWT
     const token = await new SignJWT({
+      id: user.id,
       nama: user.nama,
+      email: user.email,
       role: user.role,
     })
       .setProtectedHeader({ alg: "HS256" })
@@ -127,9 +99,7 @@ export async function POST(request) {
       .setExpirationTime("8h")
       .sign(new TextEncoder().encode(secret));
 
-    // ==================================
-    // BUAT COOKIE SESSION
-    // ==================================
+    // Buat cookie
     const cookie = [
       `spmb_session=${token}`,
       "HttpOnly",
@@ -147,6 +117,7 @@ export async function POST(request) {
       user: {
         id: user.id,
         nama: user.nama,
+        email: user.email,
         role: user.role,
       },
     });
