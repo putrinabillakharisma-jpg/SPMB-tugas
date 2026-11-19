@@ -8,10 +8,14 @@ import {
   useState,
   type FormEvent,
 } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import AdminSidebar from "../AdminSidebar";
 import "../admin.css";
 import "./calon-siswa.css";
+
+/* =========================
+   TYPES
+========================= */
 
 type Siswa = {
   id: number;
@@ -39,6 +43,10 @@ type FormSiswa = {
   password: string;
 };
 
+/* =========================
+   CONSTANTS
+========================= */
+
 const FORM_AWAL: FormSiswa = {
   nama: "",
   nisn: "",
@@ -47,6 +55,10 @@ const FORM_AWAL: FormSiswa = {
 };
 
 const JUMLAH_PER_HALAMAN = 8;
+
+/* =========================
+   HELPER FUNCTIONS
+========================= */
 
 function tanggalIndonesia(value?: string) {
   if (!value) return "—";
@@ -108,36 +120,60 @@ function kelasStatus(status: string) {
   return "status-neutral";
 }
 
+/* =========================
+   MAIN PAGE
+========================= */
+
 export default function CalonSiswaPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const [data, setData] = useState<Siswa[]>([]);
   const [loading, setLoading] = useState(true);
+
   const [search, setSearch] = useState("");
   const [tabAktif, setTabAktif] = useState("Semua");
-  const [filterJurusan, setFilterJurusan] = useState("Semua Jurusan");
-  const [filterJalur, setFilterJalur] = useState("Semua Jalur");
-  const [filterBerkas, setFilterBerkas] = useState("Semua Status");
-  const [filterSeleksi, setFilterSeleksi] = useState("Semua Status");
+
+  const [filterJurusan, setFilterJurusan] =
+    useState("Semua Jurusan");
+
+  const [filterJalur, setFilterJalur] =
+    useState("Semua Jalur");
+
+  const [filterBerkas, setFilterBerkas] =
+    useState("Semua Status");
+
+  const [filterSeleksi, setFilterSeleksi] =
+    useState("Semua Status");
+
   const [halaman, setHalaman] = useState(1);
+
   const [terpilih, setTerpilih] = useState<number[]>([]);
+
   const [modal, setModal] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
+
   const [form, setForm] = useState<FormSiswa>(FORM_AWAL);
+
   const [pesan, setPesan] = useState("");
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
+
+  /* =========================
+     FETCH DATA
+  ========================= */
 
   const ambilData = useCallback(async () => {
     setLoading(true);
     setError("");
 
     try {
-      const response = await fetch("/api/admin/calon-siswa", {
-        method: "GET",
-        cache: "no-store",
-      });
+      const response = await fetch(
+        "/api/admin/calon-siswa",
+        {
+          method: "GET",
+          cache: "no-store",
+        }
+      );
 
       const result = await response.json();
 
@@ -148,11 +184,16 @@ export default function CalonSiswaPage() {
 
       if (!response.ok) {
         throw new Error(
-          result.message || "Gagal mengambil data calon siswa."
+          result.message ||
+            "Gagal mengambil data calon siswa."
         );
       }
 
-      setData(Array.isArray(result.data) ? result.data : []);
+      setData(
+        Array.isArray(result.data)
+          ? result.data
+          : []
+      );
     } catch (err) {
       setError(
         err instanceof Error
@@ -168,10 +209,43 @@ export default function CalonSiswaPage() {
     void ambilData();
   }, [ambilData]);
 
+  /* =========================
+     OPEN MODAL FROM URL
+
+     Tidak menggunakan useSearchParams()
+     sehingga menghindari masalah Suspense
+     ketika prerendering.
+  ========================= */
+
+  function bukaTambah() {
+    setEditId(null);
+    setForm(FORM_AWAL);
+    setError("");
+    setPesan("");
+    setModal(true);
+  }
+
+  useEffect(() => {
+    const params = new URLSearchParams(
+      window.location.search
+    );
+
+    if (params.get("tambah") === "1") {
+      bukaTambah();
+      router.replace("/admin/calon-siswa");
+    }
+  }, [router]);
+
+  /* =========================
+     FILTER OPTIONS
+  ========================= */
+
   const daftarJurusan = useMemo(() => {
     const nilai = data
       .map((siswa) => siswa.jurusan)
-      .filter((item): item is string => Boolean(item));
+      .filter(
+        (item): item is string => Boolean(item)
+      );
 
     return [...new Set(nilai)].sort();
   }, [data]);
@@ -179,10 +253,16 @@ export default function CalonSiswaPage() {
   const daftarJalur = useMemo(() => {
     const nilai = data
       .map((siswa) => siswa.jalur)
-      .filter((item): item is string => Boolean(item));
+      .filter(
+        (item): item is string => Boolean(item)
+      );
 
     return [...new Set(nilai)].sort();
   }, [data]);
+
+  /* =========================
+     FILTER DATA
+  ========================= */
 
   const hasilFilter = useMemo(() => {
     const keyword = search.trim().toLowerCase();
@@ -190,9 +270,15 @@ export default function CalonSiswaPage() {
     return data.filter((siswa) => {
       const cocokPencarian =
         !keyword ||
-        (siswa.nama || "").toLowerCase().includes(keyword) ||
-        (siswa.nisn || "").toLowerCase().includes(keyword) ||
-        (siswa.whatsapp || "").toLowerCase().includes(keyword) ||
+        (siswa.nama || "")
+          .toLowerCase()
+          .includes(keyword) ||
+        (siswa.nisn || "")
+          .toLowerCase()
+          .includes(keyword) ||
+        (siswa.whatsapp || "")
+          .toLowerCase()
+          .includes(keyword) ||
         (siswa.asal_sekolah || siswa.asal || "")
           .toLowerCase()
           .includes(keyword);
@@ -223,7 +309,8 @@ export default function CalonSiswaPage() {
           !berkas ||
           /menunggu|belum/i.test(berkas);
       } else if (tabAktif === "Terverifikasi") {
-        cocokTab = /verifikasi|lengkap/i.test(berkas);
+        cocokTab =
+          /verifikasi|lengkap/i.test(berkas);
       } else if (tabAktif === "Perlu Revisi") {
         cocokTab = /revisi/i.test(berkas);
       }
@@ -258,9 +345,15 @@ export default function CalonSiswaPage() {
     filterSeleksi,
   ]);
 
+  /* =========================
+     PAGINATION
+  ========================= */
+
   const totalHalaman = Math.max(
     1,
-    Math.ceil(hasilFilter.length / JUMLAH_PER_HALAMAN)
+    Math.ceil(
+      hasilFilter.length / JUMLAH_PER_HALAMAN
+    )
   );
 
   const dataHalaman = hasilFilter.slice(
@@ -270,89 +363,134 @@ export default function CalonSiswaPage() {
 
   const semuaDiHalamanTerpilih =
     dataHalaman.length > 0 &&
-    dataHalaman.every((siswa) => terpilih.includes(siswa.id));
+    dataHalaman.every((siswa) =>
+      terpilih.includes(siswa.id)
+    );
 
-  const jumlahBelumVerifikasi = data.filter((siswa) => {
-    const status = nilaiBerkas(siswa);
-    return !status || /menunggu|belum/i.test(status);
-  }).length;
+  /* =========================
+     STATISTICS
+  ========================= */
 
-  const jumlahTerverifikasi = data.filter((siswa) =>
-    /verifikasi|lengkap/i.test(nilaiBerkas(siswa))
+  const jumlahBelumVerifikasi = data.filter(
+    (siswa) => {
+      const status = nilaiBerkas(siswa);
+
+      return (
+        !status ||
+        /menunggu|belum/i.test(status)
+      );
+    }
   ).length;
 
-  const jumlahPerluRevisi = data.filter((siswa) =>
-    /revisi/i.test(nilaiBerkas(siswa))
+  const jumlahTerverifikasi = data.filter(
+    (siswa) =>
+      /verifikasi|lengkap/i.test(
+        nilaiBerkas(siswa)
+      )
   ).length;
 
-  const jumlahLolos = data.filter((siswa) =>
-    /^lolos$/i.test(nilaiSeleksi(siswa).trim())
+  const jumlahPerluRevisi = data.filter(
+    (siswa) =>
+      /revisi/i.test(nilaiBerkas(siswa))
   ).length;
 
-  function bukaTambah() {
-    setEditId(null);
-    setForm(FORM_AWAL);
-    setError("");
-    setPesan("");
-    setModal(true);
-  }
-  useEffect(() => {
-  if (searchParams.get("tambah") === "1") {
+  const jumlahLolos = data.filter(
+    (siswa) =>
+      /^lolos$/i.test(
+        nilaiSeleksi(siswa).trim()
+      )
+  ).length;
+
+  /* =========================
+     ADD STUDENT
+  ========================= */
+
+  function bukaTambahSiswa() {
     bukaTambah();
-    router.replace("/admin/calon-siswa");
   }
-}, [searchParams, router]);
+
+  /* =========================
+     EDIT STUDENT
+  ========================= */
 
   function bukaEdit(siswa: Siswa) {
     setEditId(siswa.id);
+
     setForm({
       nama: siswa.nama || "",
       nisn: siswa.nisn || "",
       whatsapp: siswa.whatsapp || "",
       password: "",
     });
+
     setError("");
     setPesan("");
     setModal(true);
   }
 
-  async function simpanData(event: FormEvent<HTMLFormElement>) {
+  /* =========================
+     SAVE STUDENT
+  ========================= */
+
+  async function simpanData(
+    event: FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
+
     setSaving(true);
     setError("");
     setPesan("");
 
     try {
-      const response = await fetch("/api/admin/calon-siswa", {
-        method: editId === null ? "POST" : "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          id: editId,
-        }),
-      });
+      const response = await fetch(
+        "/api/admin/calon-siswa",
+        {
+          method:
+            editId === null ? "POST" : "PUT",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            ...form,
+            id: editId,
+          }),
+        }
+      );
 
       const result = await response.json();
 
       if (!response.ok) {
         throw new Error(
-          result.message || "Gagal menyimpan data siswa."
+          result.message ||
+            "Gagal menyimpan data siswa."
         );
       }
 
       setModal(false);
       setForm(FORM_AWAL);
       setEditId(null);
-      setPesan(result.message || "Data berhasil disimpan.");
+
+      setPesan(
+        result.message || "Data berhasil disimpan."
+      );
+
       await ambilData();
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Gagal menyimpan data."
+        err instanceof Error
+          ? err.message
+          : "Gagal menyimpan data."
       );
     } finally {
       setSaving(false);
     }
   }
+
+  /* =========================
+     DELETE STUDENT
+  ========================= */
 
   async function hapusData(siswa: Siswa) {
     const yakin = window.confirm(
@@ -367,36 +505,55 @@ export default function CalonSiswaPage() {
     try {
       const response = await fetch(
         `/api/admin/calon-siswa?id=${siswa.id}`,
-        { method: "DELETE" }
+        {
+          method: "DELETE",
+        }
       );
 
       const result = await response.json();
 
       if (!response.ok) {
         throw new Error(
-          result.message || "Gagal menghapus data siswa."
+          result.message ||
+            "Gagal menghapus data siswa."
         );
       }
 
       setTerpilih((sebelumnya) =>
-        sebelumnya.filter((id) => id !== siswa.id)
+        sebelumnya.filter(
+          (id) => id !== siswa.id
+        )
       );
-      setPesan(result.message || "Data berhasil dihapus.");
+
+      setPesan(
+        result.message || "Data berhasil dihapus."
+      );
+
       await ambilData();
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Gagal menghapus data."
+        err instanceof Error
+          ? err.message
+          : "Gagal menghapus data."
       );
     }
   }
+
+  /* =========================
+     SELECT STUDENTS
+  ========================= */
 
   function pilihSemua() {
     if (semuaDiHalamanTerpilih) {
       setTerpilih((sebelumnya) =>
         sebelumnya.filter(
-          (id) => !dataHalaman.some((siswa) => siswa.id === id)
+          (id) =>
+            !dataHalaman.some(
+              (siswa) => siswa.id === id
+            )
         )
       );
+
       return;
     }
 
@@ -404,7 +561,9 @@ export default function CalonSiswaPage() {
       Array.from(
         new Set([
           ...sebelumnya,
-          ...dataHalaman.map((siswa) => siswa.id),
+          ...dataHalaman.map(
+            (siswa) => siswa.id
+          ),
         ])
       )
     );
@@ -413,10 +572,16 @@ export default function CalonSiswaPage() {
   function pilihSatu(id: number) {
     setTerpilih((sebelumnya) =>
       sebelumnya.includes(id)
-        ? sebelumnya.filter((item) => item !== id)
+        ? sebelumnya.filter(
+            (item) => item !== id
+          )
         : [...sebelumnya, id]
     );
   }
+
+  /* =========================
+     RESET FILTER
+  ========================= */
 
   function resetFilter() {
     setSearch("");
@@ -427,6 +592,10 @@ export default function CalonSiswaPage() {
     setFilterSeleksi("Semua Status");
     setHalaman(1);
   }
+
+  /* =========================
+     EXPORT CSV
+  ========================= */
 
   function eksporCSV() {
     const kolom = [
@@ -459,12 +628,17 @@ export default function CalonSiswaPage() {
       `"${String(nilai ?? "").replace(/"/g, '""')}"`;
 
     const isi = [kolom, ...baris]
-      .map((barisCSV) => barisCSV.map(aman).join(","))
+      .map((barisCSV) =>
+        barisCSV.map(aman).join(",")
+      )
       .join("\r\n");
 
-    const blob = new Blob(["\uFEFF" + isi], {
-      type: "text/csv;charset=utf-8;",
-    });
+    const blob = new Blob(
+      ["\uFEFF" + isi],
+      {
+        type: "text/csv;charset=utf-8;",
+      }
+    );
 
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -476,42 +650,67 @@ export default function CalonSiswaPage() {
     URL.revokeObjectURL(url);
   }
 
+  /* =========================
+     LOGOUT
+  ========================= */
+
   async function logout() {
-    if (!window.confirm("Yakin ingin keluar dari akun admin?")) {
+    if (
+      !window.confirm(
+        "Yakin ingin keluar dari akun admin?"
+      )
+    ) {
       return;
     }
 
     try {
-      const response = await fetch("/api/logout", {
-        method: "POST",
-      });
+      const response = await fetch(
+        "/api/logout",
+        {
+          method: "POST",
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Logout gagal. Silakan coba lagi.");
+        throw new Error(
+          "Logout gagal. Silakan coba lagi."
+        );
       }
 
       router.replace("/login");
       router.refresh();
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Logout gagal."
+        err instanceof Error
+          ? err.message
+          : "Logout gagal."
       );
     }
   }
+
+  /* =========================
+     RENDER
+  ========================= */
 
   return (
     <div className="admin cs-layout">
       <AdminSidebar />
 
       <main className="main cs-main">
+
+        {/* HEADER */}
+
         <header className="cs-topbar">
           <div className="cs-heading">
             <p className="cs-breadcrumb">
               Dashboard <span>›</span> Calon Siswa
             </p>
+
             <h1>Data Calon Siswa</h1>
+
             <p className="cs-subtitle">
-              Pantau dan kelola calon siswa baru SPMB SMK Citra Negara.
+              Pantau dan kelola calon siswa baru
+              SPMB SMK Citra Negara.
             </p>
           </div>
 
@@ -519,6 +718,7 @@ export default function CalonSiswaPage() {
             <span className="cs-year">
               ▦ <span>Tahun Ajaran 2026/2027</span>
             </span>
+
             <button
               type="button"
               className="cs-export-btn"
@@ -526,34 +726,53 @@ export default function CalonSiswaPage() {
             >
               ↓ <span>Ekspor</span>
             </button>
+
             <button
               type="button"
               className="cs-primary-btn"
-              onClick={bukaTambah}
+              onClick={bukaTambahSiswa}
             >
               <span>＋</span> Tambah Calon Siswa
             </button>
           </div>
         </header>
 
+        {/* ALERT */}
+
         {pesan && (
-          <div className="cs-alert success" role="status">
+          <div
+            className="cs-alert success"
+            role="status"
+          >
             {pesan}
           </div>
         )}
 
         {error && (
-          <div className="cs-alert danger" role="alert">
+          <div
+            className="cs-alert danger"
+            role="alert"
+          >
             {error}
           </div>
         )}
 
+        {/* STATISTICS */}
+
         <section className="cs-stats">
+
           <article className="cs-stat-card">
-            <div className="cs-stat-icon blue">♟</div>
+            <div className="cs-stat-icon blue">
+              ♟
+            </div>
+
             <div className="cs-stat-info">
               <p>Total Calon Siswa</p>
-              <h2>{loading ? "…" : data.length}</h2>
+
+              <h2>
+                {loading ? "…" : data.length}
+              </h2>
+
               <span className="cs-stat-note">
                 Total data tersimpan
               </span>
@@ -561,10 +780,19 @@ export default function CalonSiswaPage() {
           </article>
 
           <article className="cs-stat-card">
-            <div className="cs-stat-icon orange">◷</div>
+            <div className="cs-stat-icon orange">
+              ◷
+            </div>
+
             <div className="cs-stat-info">
               <p>Menunggu Verifikasi</p>
-              <h2>{loading ? "…" : jumlahBelumVerifikasi}</h2>
+
+              <h2>
+                {loading
+                  ? "…"
+                  : jumlahBelumVerifikasi}
+              </h2>
+
               <span className="cs-stat-note orange-text">
                 Perlu ditindaklanjuti
               </span>
@@ -572,10 +800,19 @@ export default function CalonSiswaPage() {
           </article>
 
           <article className="cs-stat-card">
-            <div className="cs-stat-icon yellow">▤</div>
+            <div className="cs-stat-icon yellow">
+              ▤
+            </div>
+
             <div className="cs-stat-info">
               <p>Dokumen Lengkap</p>
-              <h2>{loading ? "…" : jumlahTerverifikasi}</h2>
+
+              <h2>
+                {loading
+                  ? "…"
+                  : jumlahTerverifikasi}
+              </h2>
+
               <span className="cs-stat-note">
                 Status dari data yang tersedia
               </span>
@@ -583,36 +820,72 @@ export default function CalonSiswaPage() {
           </article>
 
           <article className="cs-stat-card">
-            <div className="cs-stat-icon green">✓</div>
+            <div className="cs-stat-icon green">
+              ✓
+            </div>
+
             <div className="cs-stat-info">
               <p>Lolos Seleksi</p>
-              <h2>{loading ? "…" : jumlahLolos}</h2>
+
+              <h2>
+                {loading ? "…" : jumlahLolos}
+              </h2>
+
               <span className="cs-stat-note">
                 Berdasarkan status seleksi
               </span>
             </div>
           </article>
+
         </section>
 
+        {/* MAIN CONTENT */}
+
         <section className="cs-content-card">
-          <div className="cs-tabs" role="tablist" aria-label="Filter status">
+
+          {/* TABS */}
+
+          <div
+            className="cs-tabs"
+            role="tablist"
+            aria-label="Filter status"
+          >
             {[
-              { label: "Semua", count: data.length },
-              { label: "Belum Verifikasi", count: jumlahBelumVerifikasi },
-              { label: "Terverifikasi", count: jumlahTerverifikasi },
-              { label: "Perlu Revisi", count: jumlahPerluRevisi },
+              {
+                label: "Semua",
+                count: data.length,
+              },
+              {
+                label: "Belum Verifikasi",
+                count: jumlahBelumVerifikasi,
+              },
+              {
+                label: "Terverifikasi",
+                count: jumlahTerverifikasi,
+              },
+              {
+                label: "Perlu Revisi",
+                count: jumlahPerluRevisi,
+              },
             ].map((tab) => (
               <button
                 type="button"
                 role="tab"
-                aria-selected={tabAktif === tab.label}
+                aria-selected={
+                  tabAktif === tab.label
+                }
                 key={tab.label}
                 className={`cs-tab ${
-                  tabAktif === tab.label ? "active" : ""
+                  tabAktif === tab.label
+                    ? "active"
+                    : ""
                 }`}
-                onClick={() => setTabAktif(tab.label)}
+                onClick={() =>
+                  setTabAktif(tab.label)
+                }
               >
                 {tab.label}
+
                 <span
                   className={`cs-tab-count ${
                     tab.label === "Belum Verifikasi"
@@ -630,13 +903,19 @@ export default function CalonSiswaPage() {
             ))}
           </div>
 
+          {/* FILTERS */}
+
           <div className="cs-filters">
+
             <label className="cs-search">
               <span>⌕</span>
+
               <input
                 type="search"
                 value={search}
-                onChange={(event) => setSearch(event.target.value)}
+                onChange={(event) =>
+                  setSearch(event.target.value)
+                }
                 placeholder="Cari nama, NISN, atau asal sekolah..."
                 aria-label="Cari calon siswa"
               />
@@ -644,29 +923,41 @@ export default function CalonSiswaPage() {
 
             <select
               value={filterJurusan}
-              onChange={(event) => setFilterJurusan(event.target.value)}
+              onChange={(event) =>
+                setFilterJurusan(event.target.value)
+              }
               aria-label="Filter jurusan"
             >
               <option>Semua Jurusan</option>
+
               {daftarJurusan.map((jurusan) => (
-                <option key={jurusan}>{jurusan}</option>
+                <option key={jurusan}>
+                  {jurusan}
+                </option>
               ))}
             </select>
 
             <select
               value={filterJalur}
-              onChange={(event) => setFilterJalur(event.target.value)}
+              onChange={(event) =>
+                setFilterJalur(event.target.value)
+              }
               aria-label="Filter jalur"
             >
               <option>Semua Jalur</option>
+
               {daftarJalur.map((jalur) => (
-                <option key={jalur}>{jalur}</option>
+                <option key={jalur}>
+                  {jalur}
+                </option>
               ))}
             </select>
 
             <select
               value={filterBerkas}
-              onChange={(event) => setFilterBerkas(event.target.value)}
+              onChange={(event) =>
+                setFilterBerkas(event.target.value)
+              }
               aria-label="Filter status berkas"
             >
               <option>Semua Status</option>
@@ -677,7 +968,9 @@ export default function CalonSiswaPage() {
 
             <select
               value={filterSeleksi}
-              onChange={(event) => setFilterSeleksi(event.target.value)}
+              onChange={(event) =>
+                setFilterSeleksi(event.target.value)
+              }
               aria-label="Filter status seleksi"
             >
               <option>Semua Status</option>
@@ -694,26 +987,37 @@ export default function CalonSiswaPage() {
             >
               ↻ Reset Filter
             </button>
+
           </div>
+
+          {/* SELECTED STUDENTS */}
 
           {terpilih.length > 0 && (
             <div className="cs-selection-bar">
-              <strong>{terpilih.length} siswa dipilih</strong>
+              <strong>
+                {terpilih.length} siswa dipilih
+              </strong>
+
               <button
                 type="button"
                 onClick={() => setTerpilih([])}
               >
                 Batalkan pilihan
               </button>
+
               <span>
-                Untuk mengubah status atau mengirim notifikasi massal,
-                endpoint khusus perlu disiapkan terlebih dahulu.
+                Untuk mengubah status atau mengirim
+                notifikasi massal, endpoint khusus
+                perlu disiapkan terlebih dahulu.
               </span>
             </div>
           )}
 
+          {/* TABLE */}
+
           <div className="cs-table-wrap">
             <table className="cs-table">
+
               <thead>
                 <tr>
                   <th className="cs-check-col">
@@ -724,6 +1028,7 @@ export default function CalonSiswaPage() {
                       aria-label="Pilih semua siswa di halaman ini"
                     />
                   </th>
+
                   <th>No</th>
                   <th>Nama Calon Siswa</th>
                   <th>Asal Sekolah</th>
@@ -738,161 +1043,225 @@ export default function CalonSiswaPage() {
               </thead>
 
               <tbody>
+
                 {loading ? (
                   <tr>
-                    <td colSpan={11} className="cs-empty">
+                    <td
+                      colSpan={11}
+                      className="cs-empty"
+                    >
                       Memuat data calon siswa...
                     </td>
                   </tr>
                 ) : dataHalaman.length === 0 ? (
                   <tr>
-                    <td colSpan={11} className="cs-empty">
-                      Tidak ada data yang sesuai dengan filter.
+                    <td
+                      colSpan={11}
+                      className="cs-empty"
+                    >
+                      Tidak ada data yang sesuai
+                      dengan filter.
                     </td>
                   </tr>
                 ) : (
-                  dataHalaman.map((siswa, index) => {
-                    const berkas = nilaiBerkas(siswa);
-                    const seleksi = nilaiSeleksi(siswa);
-                    const skor = siswa.skor_tpa ?? siswa.skor;
+                  dataHalaman.map(
+                    (siswa, index) => {
+                      const berkas =
+                        nilaiBerkas(siswa);
 
-                    return (
-                      <tr
-                        key={siswa.id}
-                        className={
-                          terpilih.includes(siswa.id) ? "row-selected" : ""
-                        }
-                      >
-                        <td className="cs-check-col">
-                          <input
-                            type="checkbox"
-                            checked={terpilih.includes(siswa.id)}
-                            onChange={() => pilihSatu(siswa.id)}
-                            aria-label={`Pilih ${siswa.nama}`}
-                          />
-                        </td>
+                      const seleksi =
+                        nilaiSeleksi(siswa);
 
-                        <td>
-                          {(halaman - 1) * JUMLAH_PER_HALAMAN +
-                            index +
-                            1}
-                        </td>
+                      const skor =
+                        siswa.skor_tpa ??
+                        siswa.skor;
 
-                        <td>
-                          <div className="cs-student">
-                            <div className="cs-avatar">
-                              {inisial(siswa.nama)}
-                            </div>
-                            <div className="cs-student-info">
-                              <strong>{siswa.nama}</strong>
-                              <span>NISN {siswa.nisn || "—"}</span>
-                            </div>
-                          </div>
-                        </td>
+                      return (
+                        <tr
+                          key={siswa.id}
+                          className={
+                            terpilih.includes(siswa.id)
+                              ? "row-selected"
+                              : ""
+                          }
+                        >
 
-                        <td>{siswa.asal_sekolah || siswa.asal || "—"}</td>
-
-                        <td>
-                          {siswa.jurusan ? (
-                            <span className="cs-major">
-                              <i />
-                              {siswa.jurusan}
-                            </span>
-                          ) : (
-                            "—"
-                          )}
-                        </td>
-
-                        <td>{siswa.jalur || "—"}</td>
-                        <td>{tanggalIndonesia(siswa.created_at)}</td>
-
-                        <td>
-                          {berkas ? (
-                            <span
-                              className={`cs-status ${kelasStatus(berkas)}`}
-                            >
-                              {berkas}
-                            </span>
-                          ) : (
-                            <span className="cs-status status-neutral">
-                              Belum tersedia
-                            </span>
-                          )}
-                        </td>
-
-                        <td>
-                          {skor !== undefined && skor !== null && skor !== "" ? (
-                            <strong className="cs-score">{skor}</strong>
-                          ) : (
-                            <span className="cs-score-empty">Belum tersedia</span>
-                          )}
-                        </td>
-
-                        <td>
-                          {seleksi ? (
-                            <span
-                              className={`cs-status ${kelasStatus(seleksi)}`}
-                            >
-                              {seleksi}
-                            </span>
-                          ) : (
-                            <span className="cs-status status-neutral">
-                              Belum tersedia
-                            </span>
-                          )}
-                        </td>
-
-                        <td>
-                          <div className="cs-actions">
-                            <button
-                              type="button"
-                              className="cs-action-btn view"
-                              title={`Lihat data ${siswa.nama}`}
-                              aria-label={`Lihat data ${siswa.nama}`}
-                              onClick={() =>
-                                window.alert(
-                                  `Nama: ${siswa.nama}\nNISN: ${siswa.nisn}\nWhatsApp: ${siswa.whatsapp}`
-                                )
+                          <td className="cs-check-col">
+                            <input
+                              type="checkbox"
+                              checked={terpilih.includes(
+                                siswa.id
+                              )}
+                              onChange={() =>
+                                pilihSatu(siswa.id)
                               }
-                            >
-                              ◉
-                            </button>
+                              aria-label={`Pilih ${siswa.nama}`}
+                            />
+                          </td>
 
-                            <button
-                              type="button"
-                              className="cs-action-btn edit"
-                              title="Edit data"
-                              aria-label={`Edit ${siswa.nama}`}
-                              onClick={() => bukaEdit(siswa)}
-                            >
-                              ✎
-                            </button>
+                          <td>
+                            {(halaman - 1) *
+                              JUMLAH_PER_HALAMAN +
+                              index +
+                              1}
+                          </td>
 
-                            <button
-                              type="button"
-                              className="cs-action-btn delete"
-                              title="Hapus data"
-                              aria-label={`Hapus ${siswa.nama}`}
-                              onClick={() => void hapusData(siswa)}
-                            >
-                              ▣
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })
+                          <td>
+                            <div className="cs-student">
+                              <div className="cs-avatar">
+                                {inisial(siswa.nama)}
+                              </div>
+
+                              <div className="cs-student-info">
+                                <strong>
+                                  {siswa.nama}
+                                </strong>
+
+                                <span>
+                                  NISN {siswa.nisn || "—"}
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td>
+                            {siswa.asal_sekolah ||
+                              siswa.asal ||
+                              "—"}
+                          </td>
+
+                          <td>
+                            {siswa.jurusan ? (
+                              <span className="cs-major">
+                                <i />
+                                {siswa.jurusan}
+                              </span>
+                            ) : (
+                              "—"
+                            )}
+                          </td>
+
+                          <td>
+                            {siswa.jalur || "—"}
+                          </td>
+
+                          <td>
+                            {tanggalIndonesia(
+                              siswa.created_at
+                            )}
+                          </td>
+
+                          <td>
+                            {berkas ? (
+                              <span
+                                className={`cs-status ${kelasStatus(
+                                  berkas
+                                )}`}
+                              >
+                                {berkas}
+                              </span>
+                            ) : (
+                              <span className="cs-status status-neutral">
+                                Belum tersedia
+                              </span>
+                            )}
+                          </td>
+
+                          <td>
+                            {skor !== undefined &&
+                            skor !== null &&
+                            skor !== "" ? (
+                              <strong className="cs-score">
+                                {skor}
+                              </strong>
+                            ) : (
+                              <span className="cs-score-empty">
+                                Belum tersedia
+                              </span>
+                            )}
+                          </td>
+
+                          <td>
+                            {seleksi ? (
+                              <span
+                                className={`cs-status ${kelasStatus(
+                                  seleksi
+                                )}`}
+                              >
+                                {seleksi}
+                              </span>
+                            ) : (
+                              <span className="cs-status status-neutral">
+                                Belum tersedia
+                              </span>
+                            )}
+                          </td>
+
+                          <td>
+                            <div className="cs-actions">
+
+                              <button
+                                type="button"
+                                className="cs-action-btn view"
+                                title={`Lihat data ${siswa.nama}`}
+                                aria-label={`Lihat data ${siswa.nama}`}
+                                onClick={() =>
+                                  window.alert(
+                                    `Nama: ${siswa.nama}\nNISN: ${siswa.nisn}\nWhatsApp: ${siswa.whatsapp}`
+                                  )
+                                }
+                              >
+                                ◉
+                              </button>
+
+                              <button
+                                type="button"
+                                className="cs-action-btn edit"
+                                title="Edit data"
+                                aria-label={`Edit ${siswa.nama}`}
+                                onClick={() =>
+                                  bukaEdit(siswa)
+                                }
+                              >
+                                ✎
+                              </button>
+
+                              <button
+                                type="button"
+                                className="cs-action-btn delete"
+                                title="Hapus data"
+                                aria-label={`Hapus ${siswa.nama}`}
+                                onClick={() =>
+                                  void hapusData(siswa)
+                                }
+                              >
+                                ▣
+                              </button>
+
+                            </div>
+                          </td>
+
+                        </tr>
+                      );
+                    }
+                  )
                 )}
+
               </tbody>
             </table>
           </div>
 
+          {/* PAGINATION */}
+
           <footer className="cs-pagination">
+
             <span>
               Menampilkan{" "}
               {hasilFilter.length === 0
                 ? 0
-                : (halaman - 1) * JUMLAH_PER_HALAMAN + 1}
+                : (halaman - 1) *
+                    JUMLAH_PER_HALAMAN +
+                  1}
               {"–"}
               {Math.min(
                 halaman * JUMLAH_PER_HALAMAN,
@@ -902,8 +1271,10 @@ export default function CalonSiswaPage() {
             </span>
 
             <div className="cs-page-controls">
+
               <label>
                 Tampilkan
+
                 <select
                   value={JUMLAH_PER_HALAMAN}
                   disabled
@@ -911,13 +1282,16 @@ export default function CalonSiswaPage() {
                 >
                   <option value={8}>8</option>
                 </select>
+
                 per halaman
               </label>
 
               <button
                 type="button"
                 disabled={halaman <= 1}
-                onClick={() => setHalaman((page) => page - 1)}
+                onClick={() =>
+                  setHalaman((page) => page - 1)
+                }
                 aria-label="Halaman sebelumnya"
               >
                 ‹
@@ -935,15 +1309,23 @@ export default function CalonSiswaPage() {
               <button
                 type="button"
                 disabled={halaman >= totalHalaman}
-                onClick={() => setHalaman((page) => page + 1)}
+                onClick={() =>
+                  setHalaman((page) => page + 1)
+                }
                 aria-label="Halaman berikutnya"
               >
                 ›
               </button>
+
             </div>
           </footer>
+
         </section>
       </main>
+
+      {/* =========================
+          MODAL TAMBAH / EDIT
+      ========================= */}
 
       {modal && (
         <div
@@ -963,9 +1345,12 @@ export default function CalonSiswaPage() {
             aria-modal="true"
             aria-labelledby="cs-modal-title"
           >
+
             <div className="cs-modal-heading">
+
               <div>
                 <p>FORMULIR SPMB</p>
+
                 <h2 id="cs-modal-title">
                   {editId === null
                     ? "Tambah Calon Siswa"
@@ -982,16 +1367,22 @@ export default function CalonSiswaPage() {
               >
                 ×
               </button>
+
             </div>
 
             <form onSubmit={simpanData}>
+
               <label>
                 Nama lengkap
+
                 <input
                   required
                   value={form.nama}
                   onChange={(event) =>
-                    setForm({ ...form, nama: event.target.value })
+                    setForm({
+                      ...form,
+                      nama: event.target.value,
+                    })
                   }
                   placeholder="Masukkan nama lengkap"
                 />
@@ -999,6 +1390,7 @@ export default function CalonSiswaPage() {
 
               <label>
                 NISN (10 angka)
+
                 <input
                   required
                   inputMode="numeric"
@@ -1019,6 +1411,7 @@ export default function CalonSiswaPage() {
 
               <label>
                 Nomor WhatsApp
+
                 <input
                   type="tel"
                   required
@@ -1036,6 +1429,7 @@ export default function CalonSiswaPage() {
               {editId === null && (
                 <label>
                   Password awal
+
                   <input
                     type="password"
                     required
@@ -1060,12 +1454,16 @@ export default function CalonSiswaPage() {
               </p>
 
               {error && (
-                <div className="cs-alert danger" role="alert">
+                <div
+                  className="cs-alert danger"
+                  role="alert"
+                >
                   {error}
                 </div>
               )}
 
               <div className="cs-modal-actions">
+
                 <button
                   type="button"
                   className="cs-cancel-btn"
@@ -1086,7 +1484,9 @@ export default function CalonSiswaPage() {
                       ? "Simpan Siswa"
                       : "Simpan Perubahan"}
                 </button>
+
               </div>
+
             </form>
           </section>
         </div>
